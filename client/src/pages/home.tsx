@@ -76,6 +76,55 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* Tech Stack Section */}
+        <section className="mb-32 md:mb-48 border-t border-border pt-16 md:pt-24">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-12 md:mb-16">
+              Technology Stack
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+              {[
+                "AWS",
+                "Kubernetes",
+                "Docker",
+                "Python",
+                "Go",
+                "React",
+                "TypeScript",
+                "PostgreSQL",
+                "Redis",
+                "Terraform",
+                "Jenkins",
+                "GraphQL",
+                "Node.js",
+                "MongoDB",
+                "Kafka",
+                "Elasticsearch",
+                "Prometheus",
+                "Grafana"
+              ].map((tech, index) => (
+                <motion.div
+                  key={tech}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.4, delay: index * 0.03 }}
+                  className="group border border-border p-4 md:p-6 hover:bg-foreground hover:text-background transition-all cursor-default"
+                >
+                  <span className="font-display font-bold text-sm md:text-base uppercase tracking-tight">
+                    {tech}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
         {/* Gallery Grid */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-y-24 gap-x-8 mb-32">
           {projects.map((project, index) => (
