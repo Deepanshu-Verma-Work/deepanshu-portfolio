@@ -76,6 +76,7 @@ export default function Home() {
           </motion.div>
         </section>
 
+
         {/* Tech Stack Section */}
         <section className="mb-32 md:mb-48 border-t border-border pt-16 md:pt-24">
           <motion.div
@@ -89,42 +90,49 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
               {[
-                "EC2",
-                "S3",
-                "EMR",
-                "VPC",
-                "IAM",
-                "SageMaker",
-                "Bedrock",
-                "CloudFront",
-                "CloudFormation",
-                "Athena",
-                "QuickSight",
-                "Ollama",
-                "Cognito",
-                "Lambda",
-                "Rekognition",
-                "Comprehend",
-                "Textract",
-                "Polly",
-                "Lex",
-                "Kendra",
-                "Step Functions",
-                "EventBridge",
-                "DynamoDB",
-                "RDS"
+                { name: "EC2", desc: "Scalable compute capacity" },
+                { name: "S3", desc: "Object storage service" },
+                { name: "EMR", desc: "Big data processing" },
+                { name: "VPC", desc: "Isolated cloud resources" },
+                { name: "IAM", desc: "Identity & access management" },
+                { name: "SageMaker", desc: "Build, train & deploy ML models" },
+                { name: "Bedrock", desc: "Foundation models via API" },
+                { name: "CloudFront", desc: "Content delivery network" },
+                { name: "CloudFormation", desc: "Infrastructure as code" },
+                { name: "Athena", desc: "Serverless query service" },
+                { name: "QuickSight", desc: "Business intelligence" },
+                { name: "Ollama", desc: "Run LLMs locally" },
+                { name: "Cognito", desc: "User authentication" },
+                { name: "Lambda", desc: "Serverless compute" },
+                { name: "Rekognition", desc: "Image & video analysis" },
+                { name: "Comprehend", desc: "Natural language processing" },
+                { name: "Textract", desc: "Extract text from documents" },
+                { name: "Polly", desc: "Text-to-speech service" },
+                { name: "Lex", desc: "Conversational AI" },
+                { name: "Kendra", desc: "Intelligent search" },
+                { name: "Step Functions", desc: "Workflow orchestration" },
+                { name: "EventBridge", desc: "Event-driven architecture" },
+                { name: "DynamoDB", desc: "NoSQL database" },
+                { name: "RDS", desc: "Relational database service" }
               ].map((tech, index) => (
                 <motion.div
-                  key={tech}
+                  key={tech.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ duration: 0.4, delay: index * 0.03 }}
-                  className="group border border-border p-4 md:p-6 hover:bg-foreground hover:text-background transition-all cursor-default"
+                  className="group relative border border-border p-4 md:p-6 hover:bg-foreground hover:text-background transition-all cursor-default overflow-hidden"
                 >
-                  <span className="font-display font-bold text-sm md:text-base uppercase tracking-tight">
-                    {tech}
-                  </span>
+                  <div className="relative z-10">
+                    <span className="font-display font-bold text-sm md:text-base uppercase tracking-tight flex items-center gap-1">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">$</span>
+                      {tech.name}
+                      <span className="inline-block w-2 h-4 bg-current opacity-0 group-hover:opacity-100 group-hover:animate-pulse ml-1"></span>
+                    </span>
+                    <p className="font-mono text-[10px] md:text-xs mt-2 opacity-0 group-hover:opacity-60 transition-opacity duration-300 leading-tight">
+                      {tech.desc}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
