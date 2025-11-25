@@ -40,7 +40,7 @@ export default function ContactFooter() {
     setIsSubmitting(true);
     try {
       // Using Formspree - replace 'your-form-id' with actual Formspree form ID
-      const response = await fetch("https://formspree.io/f/xovqkgbo", {
+      const response = await fetch("https://formspree.io/f/xzzqyeop", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
