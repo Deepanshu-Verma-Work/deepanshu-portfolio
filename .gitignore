@@ -1,0 +1,68 @@
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist
+build
+.next
+out
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+coverage
+.nyc_output
+
+# Logs
+logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+.tmp
+tmp
+temp
+
+# Vite
+.vite
+*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Drizzle
+drizzle
+
+# OS
+Thumbs.db
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Replit (not needed)
+.replit
+replit.nix
+
+# Development artifacts
+.gemini
