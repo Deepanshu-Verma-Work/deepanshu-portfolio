@@ -54,12 +54,12 @@ export default function Home() {
     <Layout>
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
         {/* Hero Section */}
-        <section className="min-h-[80vh] flex flex-col justify-end mb-32 pb-12">
+        <section className="min-h-[60vh] md:min-h-[80vh] flex flex-col justify-center md:justify-end mb-16 md:mb-32 pb-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-32 text-[12vw] leading-[0.8] font-display font-bold tracking-tighter uppercase text-foreground opacity-30"
+            className="mt-20 md:mt-32 text-[12vw] leading-[0.8] font-display font-bold tracking-tighter uppercase text-foreground opacity-30"
           >
             System<br />
             Architect
