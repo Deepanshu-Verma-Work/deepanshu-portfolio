@@ -5,7 +5,7 @@ import path from "path";
 import { metaImagesPlugin } from "./vite-plugin-meta-images";
 
 export default defineConfig({
-  base: '/portfolio-genai/',
+  base: '/deepanshu-portfolio/',
   plugins: [
     react(),
     tailwindcss(),
