@@ -11,6 +11,7 @@ import CloudInfrastructure from "@/pages/projects/cloud-infrastructure";
 import NeuralNetworkAPI from "@/pages/projects/neural-network-api";
 import DataLakehouse from "@/pages/projects/data-lakehouse";
 import SecurityProtocol from "@/pages/projects/security-protocol";
+import TechDetail from "@/pages/tech-detail";
 
 const base = import.meta.env.BASE_URL;
 
@@ -24,6 +25,7 @@ function Routes() {
       <Route path="/projects/neural-network-api" component={NeuralNetworkAPI} />
       <Route path="/projects/data-lakehouse" component={DataLakehouse} />
       <Route path="/projects/security-protocol" component={SecurityProtocol} />
+      <Route path="/tech/:slug" component={TechDetail} />
       <Route component={NotFound} />
     </Switch>
   );
