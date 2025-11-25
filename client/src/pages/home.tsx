@@ -89,24 +89,30 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
               {[
-                "AWS",
-                "Kubernetes",
-                "Docker",
-                "Python",
-                "Go",
-                "React",
-                "TypeScript",
-                "PostgreSQL",
-                "Redis",
-                "Terraform",
-                "Jenkins",
-                "GraphQL",
-                "Node.js",
-                "MongoDB",
-                "Kafka",
-                "Elasticsearch",
-                "Prometheus",
-                "Grafana"
+                "EC2",
+                "S3",
+                "EMR",
+                "VPC",
+                "IAM",
+                "SageMaker",
+                "Bedrock",
+                "CloudFront",
+                "CloudFormation",
+                "Athena",
+                "QuickSight",
+                "Ollama",
+                "Cognito",
+                "Lambda",
+                "Rekognition",
+                "Comprehend",
+                "Textract",
+                "Polly",
+                "Lex",
+                "Kendra",
+                "Step Functions",
+                "EventBridge",
+                "DynamoDB",
+                "RDS"
               ].map((tech, index) => (
                 <motion.div
                   key={tech}
