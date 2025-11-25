@@ -79,7 +79,7 @@ export default function ContactFooter() {
       <div className="absolute top-0 left-0 w-full h-px bg-background/20" />
       <div className="absolute -left-[10%] -bottom-[50%] w-[50%] h-[100%] bg-background/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
+      <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 md:gap-32">
         {/* Text Content */}
         <div className="flex flex-col justify-between">
           <div>
@@ -152,7 +152,7 @@ export default function ContactFooter() {
       </div>
 
       {/* Mobile Footer Info */}
-      <div className="md:hidden mt-16 pt-8 border-t border-background/10 space-y-2 font-mono text-xs text-background/40 uppercase tracking-widest text-center">
+      <div className="md:hidden mt-24 pt-8 border-t border-background/10 space-y-2 font-mono text-xs text-background/40 uppercase tracking-widest text-center pb-12">
         <p>Pune, India</p>
         <p>deepanshu.verma@zohomail.in</p>
         <p>+91 7987170923</p>

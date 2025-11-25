@@ -16,10 +16,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <span className="text-background font-display font-bold text-2xl tracking-tighter">DV</span>
             </div>
             <div>
-              <div className="text-lg md:text-xl font-display font-bold tracking-tight text-foreground">
+              <div className="hidden md:block text-lg md:text-xl font-display font-bold tracking-tight text-foreground">
                 Deepanshu Portfolio
               </div>
-              <div className="text-[10px] font-mono opacity-60 text-foreground">
+              <div className="hidden md:block text-[10px] font-mono opacity-60 text-foreground">
                 IT ARCHITECT
               </div>
             </div>
