@@ -55,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       {/* Vertical Text Decoration - Left */}
-      <div className="fixed left-6 md:left-12 bottom-12 hidden md:block z-40 mix-blend-difference text-white pointer-events-none">
+      <div className="fixed left-6 md:left-12 bottom-12 hidden lg:block z-40 mix-blend-difference text-white pointer-events-none">
         <span className="writing-vertical-rl rotate-180 text-xs font-mono opacity-40 tracking-widest uppercase">
           Deepanshu Verma — IT Architect
         </span>

@@ -74,7 +74,7 @@ export default function ContactFooter() {
   }
 
   return (
-    <footer className="bg-foreground text-background py-24 md:py-32 px-6 md:px-12 relative overflow-hidden">
+    <footer className="bg-foreground text-background pt-40 pb-24 md:py-32 px-6 md:px-12 relative overflow-hidden">
       {/* Abstract Decoration */}
       <div className="absolute top-0 left-0 w-full h-px bg-background/20" />
       <div className="absolute -left-[10%] -bottom-[50%] w-[50%] h-[100%] bg-background/5 rounded-full blur-3xl pointer-events-none" />
