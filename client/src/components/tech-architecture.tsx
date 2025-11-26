@@ -242,7 +242,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     labelStyle.transform = 'translate(-50%, -100%)';
                 } else if (isBottom) {
                     labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
-                    labelStyle.top = `calc(50% + ${pos.y - center.y + 65}px)`;
+                    labelStyle.top = `calc(50% + ${pos.y - center.y + 55}px)`;
                     labelStyle.transform = 'translateX(-50%)';
                 } else {
                     labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
@@ -272,7 +272,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
             })}
 
             {/* Hover Info Overlay */}
-            <div className="absolute bottom-8 left-0 right-0 text-center h-8 pointer-events-none">
+            <div className="absolute bottom-12 left-0 right-0 text-center h-8 pointer-events-none">
                 {hoveredNode ? (
                     <motion.span
                         initial={{ opacity: 0, y: 5 }}
