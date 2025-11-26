@@ -6,6 +6,7 @@ import { Link, useParams } from "wouter";
 
 // Complete tech data with GenAI focus
 import { techData } from "@/data/tech-data";
+import TechArchitecture from "@/components/tech-architecture";
 
 export default function TechDetail() {
     const params = useParams();
@@ -67,22 +68,17 @@ export default function TechDetail() {
                     </p>
                 </motion.div>
 
-                {/* Hero Visual Pattern */}
+                {/* Architecture Visualization */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="w-full h-48 md:h-64 bg-muted/30 border border-border mb-24 relative overflow-hidden group"
+                    className="mb-24"
                 >
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background"></div>
-
-                    {/* Abstract Tech Representation */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                        <div className="w-32 h-32 border-2 border-foreground rounded-full animate-[spin_10s_linear_infinite]"></div>
-                        <div className="absolute w-24 h-24 border border-foreground/50 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-                        <div className="absolute w-4 h-4 bg-foreground rounded-full"></div>
-                    </div>
+                    <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
+                        Architecture & Integrations
+                    </h2>
+                    <TechArchitecture tech={tech} />
                 </motion.div>
 
                 {/* Content Sections - Reordered: What, Why, How, Best */}

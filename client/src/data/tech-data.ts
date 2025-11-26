@@ -7,6 +7,12 @@ export interface TechData {
     howWeUsedIt: string[];
     bestPractices: string[];
     whyNeeded: string;
+    connections: {
+        name: string;
+        slug: string;
+        role: "source" | "destination" | "integration"; // source=inputs to this, destination=outputs from this
+        description: string;
+    }[];
 }
 
 export const techData: Record<string, TechData> = {
@@ -29,7 +35,12 @@ export const techData: Record<string, TechData> = {
             "Enable detailed monitoring + CloudWatch alarms for auto-recovery",
             "Run GPU workloads on DLAMI or optimized AMIs to reduce overhead"
         ],
-        whyNeeded: "EC2 gives complete control and flexibility necessary for custom GenAI infrastructure—especially when managing GPU clusters, distributed training, or high-performance inference workloads that aren't possible with fully managed services."
+        whyNeeded: "EC2 gives complete control and flexibility necessary for custom GenAI infrastructure—especially when managing GPU clusters, distributed training, or high-performance inference workloads that aren't possible with fully managed services.",
+        connections: [
+            { name: "Amazon VPC", slug: "vpc", role: "integration", description: "Runs securely within isolated network" },
+            { name: "Amazon S3", slug: "s3", role: "integration", description: "Accesses training data and artifacts" },
+            { name: "AWS IAM", slug: "iam", role: "integration", description: "Managed identity and permissions" }
+        ]
     },
     "s3": {
         name: "Amazon S3",
@@ -50,7 +61,13 @@ export const techData: Record<string, TechData> = {
             "Use S3 Access Points and VPC Endpoints for secure access",
             "Integrate S3 with EventBridge for automatic pipeline triggers"
         ],
-        whyNeeded: "S3 is the foundation of data architecture for any GenAI ecosystem—serving as the unified storage layer for training data, embeddings, documents, and model outputs in enterprise-scale environments."
+        whyNeeded: "S3 is the foundation of data architecture for any GenAI ecosystem—serving as the unified storage layer for training data, embeddings, documents, and model outputs in enterprise-scale environments.",
+        connections: [
+            { name: "Amazon Athena", slug: "athena", role: "destination", description: "Data source for SQL queries" },
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Triggers functions on upload" },
+            { name: "Amazon CloudFront", slug: "cloudfront", role: "destination", description: "Origin for content delivery" },
+            { name: "Amazon SageMaker", slug: "sagemaker", role: "integration", description: "Stores model artifacts" }
+        ]
     },
     "emr": {
         name: "Amazon EMR",
@@ -71,7 +88,11 @@ export const techData: Record<string, TechData> = {
             "Use EMR managed scaling and instance fleets",
             "Integrate with Lake Formation for enterprise access control"
         ],
-        whyNeeded: "EMR is critical when preparing large-scale datasets for GenAI and analytics workloads, enabling scalable, cost-efficient data processing pipelines for enterprise-level AI systems."
+        whyNeeded: "EMR is critical when preparing large-scale datasets for GenAI and analytics workloads, enabling scalable, cost-efficient data processing pipelines for enterprise-level AI systems.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "integration", description: "Reads/Writes data lake content" },
+            { name: "Amazon EC2", slug: "ec2", role: "integration", description: "Runs on compute instances" }
+        ]
     },
     "vpc": {
         name: "Amazon VPC",
@@ -92,7 +113,12 @@ export const techData: Record<string, TechData> = {
             "Enable Flow Logs for compliance and threat monitoring",
             "Use PrivateLink for accessing AI services privately"
         ],
-        whyNeeded: "GenAI workloads must be deployed in secure, compliant network zones—VPC ensures isolation, controlled access, and enterprise-grade governance for sensitive AI ecosystems."
+        whyNeeded: "GenAI workloads must be deployed in secure, compliant network zones—VPC ensures isolation, controlled access, and enterprise-grade governance for sensitive AI ecosystems.",
+        connections: [
+            { name: "Amazon EC2", slug: "ec2", role: "destination", description: "Hosts compute instances" },
+            { name: "AWS Lambda", slug: "lambda", role: "destination", description: "Secure execution environment" },
+            { name: "Amazon RDS", slug: "rds", role: "destination", description: "Network isolation for DB" }
+        ]
     },
     "iam": {
         name: "AWS IAM",
@@ -113,7 +139,12 @@ export const techData: Record<string, TechData> = {
             "Enable AWS Organizations SCPs for security governance",
             "Rotate and audit IAM access regularly"
         ],
-        whyNeeded: "IAM forms the backbone of security across AI workflows—protecting training data, restricting model endpoints, and ensuring compliance with enterprise security standards."
+        whyNeeded: "IAM forms the backbone of security across AI workflows—protecting training data, restricting model endpoints, and ensuring compliance with enterprise security standards.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "integration", description: "Controls bucket access" },
+            { name: "Amazon Bedrock", slug: "bedrock", role: "integration", description: "Manages model invocation permissions" },
+            { name: "Amazon Cognito", slug: "cognito", role: "integration", description: "Identity federation" }
+        ]
     },
     "sagemaker": {
         name: "Amazon SageMaker",
@@ -134,7 +165,11 @@ export const techData: Record<string, TechData> = {
             "Use SageMaker Debugger to identify training issues early",
             "Implement proper IAM roles with least privilege access"
         ],
-        whyNeeded: "SageMaker accelerates the ML development lifecycle by providing pre-built algorithms, managed infrastructure, and integrated tools. It reduces time-to-market for ML models from months to weeks, while ensuring scalability and cost-efficiency."
+        whyNeeded: "SageMaker accelerates the ML development lifecycle by providing pre-built algorithms, managed infrastructure, and integrated tools. It reduces time-to-market for ML models from months to weeks, while ensuring scalability and cost-efficiency.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "integration", description: "Stores training data & artifacts" },
+            { name: "AWS Step Functions", slug: "step-functions", role: "source", description: "Orchestrates ML pipelines" }
+        ]
     },
     "bedrock": {
         name: "Amazon Bedrock",
@@ -155,7 +190,12 @@ export const techData: Record<string, TechData> = {
             "Enable VPC endpoints for private model invocation",
             "Use caching layers (Lambda/ElastiCache) for low-latency inference"
         ],
-        whyNeeded: "Bedrock is the center of the enterprise GenAI ecosystem—offering secure, scalable, compliant foundation models without requiring GPU management. It accelerates GenAI adoption while maintaining strict security boundaries."
+        whyNeeded: "Bedrock is the center of the enterprise GenAI ecosystem—offering secure, scalable, compliant foundation models without requiring GPU management. It accelerates GenAI adoption while maintaining strict security boundaries.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Invokes models via API" },
+            { name: "Amazon S3", slug: "s3", role: "integration", description: "Knowledge base data source" },
+            { name: "Amazon Kendra", slug: "kendra", role: "integration", description: "RAG retrieval backend" }
+        ]
     },
     "cloudfront": {
         name: "Amazon CloudFront",
@@ -176,7 +216,11 @@ export const techData: Record<string, TechData> = {
             "Enable WAF with bot control for protection",
             "Use compression and HTTP/3 for performance"
         ],
-        whyNeeded: "CloudFront enhances the performance and security of GenAI apps, ensuring global low-latency access to AI dashboards, portals, and model-driven APIs."
+        whyNeeded: "CloudFront enhances the performance and security of GenAI apps, ensuring global low-latency access to AI dashboards, portals, and model-driven APIs.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Origin bucket" },
+            { name: "AWS Lambda", slug: "lambda", role: "integration", description: "Edge compute (Lambda@Edge)" }
+        ]
     },
     "cloudformation": {
         name: "AWS CloudFormation",
@@ -197,7 +241,12 @@ export const techData: Record<string, TechData> = {
             "Use parameters and mappings for multi-environment setups",
             "Avoid manual changes — use drift detection"
         ],
-        whyNeeded: "Enterprise GenAI ecosystems require consistency and compliance. CloudFormation ensures predictable provisioning of the entire stack from networking to AI services."
+        whyNeeded: "Enterprise GenAI ecosystems require consistency and compliance. CloudFormation ensures predictable provisioning of the entire stack from networking to AI services.",
+        connections: [
+            { name: "Amazon VPC", slug: "vpc", role: "destination", description: "Provisions network" },
+            { name: "Amazon EC2", slug: "ec2", role: "destination", description: "Provisions compute" },
+            { name: "AWS Lambda", slug: "lambda", role: "destination", description: "Provisions functions" }
+        ]
     },
     "athena": {
         name: "Amazon Athena",
@@ -218,7 +267,11 @@ export const techData: Record<string, TechData> = {
             "Secure queries using S3 bucket policies and IAM controls",
             "Integrate with Lake Formation for fine-grained governance"
         ],
-        whyNeeded: "Athena enables enterprise-scale analytics that support GenAI training, evaluation, observability, and data preparation — all without maintaining infrastructure."
+        whyNeeded: "Athena enables enterprise-scale analytics that support GenAI training, evaluation, observability, and data preparation — all without maintaining infrastructure.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Queries data from" },
+            { name: "Amazon QuickSight", slug: "quicksight", role: "destination", description: "Visualizes results" }
+        ]
     },
     "quicksight": {
         name: "Amazon QuickSight",
@@ -239,7 +292,11 @@ export const techData: Record<string, TechData> = {
             "Automate dataset refreshes through EventBridge",
             "Organize dashboards using namespaces for enterprises"
         ],
-        whyNeeded: "QuickSight provides business-level visibility into GenAI operations—helping organizations track usage, cost, and performance at scale."
+        whyNeeded: "QuickSight provides business-level visibility into GenAI operations—helping organizations track usage, cost, and performance at scale.",
+        connections: [
+            { name: "Amazon Athena", slug: "athena", role: "source", description: "Data source" },
+            { name: "Amazon RDS", slug: "rds", role: "source", description: "Data source" }
+        ]
     },
     "ollama": {
         name: "Ollama",
@@ -260,7 +317,11 @@ export const techData: Record<string, TechData> = {
             "Compare latency/cost vs Bedrock before productionizing",
             "Use quantized models for cost-efficient serving"
         ],
-        whyNeeded: "Ollama gives enterprises flexibility to run custom or open-source models without relying entirely on managed services — essential for hybrid, private, or cost-optimized GenAI ecosystems."
+        whyNeeded: "Ollama gives enterprises flexibility to run custom or open-source models without relying entirely on managed services — essential for hybrid, private, or cost-optimized GenAI ecosystems.",
+        connections: [
+            { name: "Amazon EC2", slug: "ec2", role: "integration", description: "Runs on" },
+            { name: "Amazon S3", slug: "s3", role: "integration", description: "Stores model weights" }
+        ]
     },
     "cognito": {
         name: "Amazon Cognito",
@@ -281,7 +342,11 @@ export const techData: Record<string, TechData> = {
             "Use Lambda triggers for custom authentication flows",
             "Store minimal user data to maintain security compliance"
         ],
-        whyNeeded: "Enterprise GenAI apps require secure user identification, fine-grained access, and governance. Cognito provides a scalable, compliant identity layer without building authentication from scratch."
+        whyNeeded: "Enterprise GenAI apps require secure user identification, fine-grained access, and governance. Cognito provides a scalable, compliant identity layer without building authentication from scratch.",
+        connections: [
+            { name: "AWS IAM", slug: "iam", role: "integration", description: "Vends credentials" },
+            { name: "AWS Lambda", slug: "lambda", role: "integration", description: "Custom auth triggers" }
+        ]
     },
     "lambda": {
         name: "AWS Lambda",
@@ -302,7 +367,13 @@ export const techData: Record<string, TechData> = {
             "Restrict Lambda permissions using least privilege",
             "Use Lambda with VPC endpoints for private AI workflows"
         ],
-        whyNeeded: "Lambda enables scalable, cost-efficient orchestration and glue logic for GenAI systems — ideal for serverless AI microservices and automated workflows."
+        whyNeeded: "Lambda enables scalable, cost-efficient orchestration and glue logic for GenAI systems — ideal for serverless AI microservices and automated workflows.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Triggered by upload" },
+            { name: "Amazon DynamoDB", slug: "dynamodb", role: "integration", description: "Reads/Writes state" },
+            { name: "Amazon Bedrock", slug: "bedrock", role: "destination", description: "Invokes models" },
+            { name: "Amazon EventBridge", slug: "eventbridge", role: "source", description: "Triggered by events" }
+        ]
     },
     "rekognition": {
         name: "Amazon Rekognition",
@@ -323,7 +394,11 @@ export const techData: Record<string, TechData> = {
             "Use IAM permission boundaries to limit data exposure",
             "Store results in DynamoDB for fast retrieval"
         ],
-        whyNeeded: "Rekognition is essential for computer-vision-supported GenAI use cases — enabling multimodal RAG, automated tagging, and intelligent document workflows."
+        whyNeeded: "Rekognition is essential for computer-vision-supported GenAI use cases — enabling multimodal RAG, automated tagging, and intelligent document workflows.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Image source" },
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Triggered by" }
+        ]
     },
     "comprehend": {
         name: "Amazon Comprehend",
@@ -344,7 +419,11 @@ export const techData: Record<string, TechData> = {
             "Secure datasets using KMS and VPC endpoints",
             "Combine with Bedrock for enriched semantic understanding"
         ],
-        whyNeeded: "Comprehend enhances GenAI systems with classical NLP signals — essential for compliance, data preprocessing, and building structured understanding."
+        whyNeeded: "Comprehend enhances GenAI systems with classical NLP signals — essential for compliance, data preprocessing, and building structured understanding.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Document source" },
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Triggered by" }
+        ]
     },
     "textract": {
         name: "Amazon Textract",
@@ -365,7 +444,11 @@ export const techData: Record<string, TechData> = {
             "Trigger pipelines using EventBridge",
             "Use encryption and access control for sensitive docs"
         ],
-        whyNeeded: "Textract is crucial for enterprise RAG and document intelligence workflows — turning unstructured PDFs into structured data usable by GenAI models."
+        whyNeeded: "Textract is crucial for enterprise RAG and document intelligence workflows — turning unstructured PDFs into structured data usable by GenAI models.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Document source" },
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Triggered by" }
+        ]
     },
     "polly": {
         name: "Amazon Polly",
@@ -386,7 +469,11 @@ export const techData: Record<string, TechData> = {
             "Use Cognito for authenticated user TTS access",
             "Limit input-size using streaming APIs"
         ],
-        whyNeeded: "Polly adds voice capabilities to GenAI solutions, enabling multimodal and accessible AI applications in enterprise environments."
+        whyNeeded: "Polly adds voice capabilities to GenAI solutions, enabling multimodal and accessible AI applications in enterprise environments.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Invoked by" },
+            { name: "Amazon S3", slug: "s3", role: "destination", description: "Stores audio" }
+        ]
     },
     "lex": {
         name: "Amazon Lex",
@@ -401,117 +488,144 @@ export const techData: Record<string, TechData> = {
             "Integrating with Contact Center workflows"
         ],
         bestPractices: [
-            "Offload reasoning to LLMs while using Lex for intent routing",
-            "Use session attributes for maintaining context",
-            "Integrate Lex with Lambda for dynamic fulfillment",
-            "Enable audio streaming for real-time responses",
-            "Use Lex for guardrail-driven initial user filtering"
+            "Use slot elicitation for structured data gathering",
+            "Implement fallback intents to hand off to GenAI models",
+            "Use Lambda for backend fulfillment logic",
+            "Continuously monitor missed utterances to improve NLU",
+            "Enable sentiment analysis for better user experience"
         ],
-        whyNeeded: "Lex provides structured dialogue management and voice infrastructure for chatbots, while LLMs handle reasoning — ideal for enterprise conversational AI architectures."
+        whyNeeded: "Lex provides the structured conversational interface layer, handling user intent and routing before handing off complex queries to Bedrock or other backend systems.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "integration", description: "Fulfillment logic" },
+            { name: "Amazon Bedrock", slug: "bedrock", role: "integration", description: "Fallback for complex queries" }
+        ]
     },
     "kendra": {
         name: "Amazon Kendra",
         category: "AI & Machine Learning",
-        description: "Intelligent enterprise search powered by machine learning.",
-        whatItIs: "Amazon Kendra is an intelligent search service powered by machine learning. It reimagines enterprise search for your websites and applications so your employees and customers can easily find the content they are looking for, even when it's scattered across multiple locations.",
+        description: "Intelligent search service powered by machine learning.",
+        whatItIs: "Amazon Kendra is an intelligent search service powered by machine learning. It reimagines enterprise search for your websites and applications so your employees and customers can easily find the content they are looking for, even when it's scattered across multiple locations and content repositories.",
         howWeUsedIt: [
-            "Building retrieval pipelines for GenAI-assisted search",
-            "Integrating with Bedrock RAG to improve accuracy",
-            "Creating semantic workplace search for employees",
-            "Connecting SharePoint, S3, Confluence, and DB sources",
-            "Using custom ranking profiles for domain-specific search"
+            "Indexing enterprise wikis and SharePoint for RAG retrieval",
+            "Providing semantic search capabilities for internal portals",
+            "Filtering search results based on user access rights",
+            "Integrating with Bedrock as a retriever for RAG pipelines",
+            "Tuning relevance for domain-specific jargon"
         ],
         bestPractices: [
-            "Use incremental sync for large enterprise collections",
-            "Optimize metadata fields for better ranking",
-            "Use Kendra as retrieval backend and Bedrock for reasoning",
-            "Enable query suggestions and relevancy tuning",
-            "Use access control filters for compliance"
+            "Use data source connectors for auto-syncing",
+            "Implement document enrichment during ingestion",
+            "Use query suggestions for better UX",
+            "Monitor search analytics to identify content gaps",
+            "Secure indices with IAM and VPC endpoints"
         ],
-        whyNeeded: "Kendra enhances GenAI with deep retrieval accuracy — essential for complex enterprise RAG systems requiring high-quality search."
+        whyNeeded: "Kendra provides the high-accuracy retrieval layer essential for RAG architectures, ensuring GenAI models have access to the most relevant and up-to-date enterprise knowledge.",
+        connections: [
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Data source" },
+            { name: "Amazon Bedrock", slug: "bedrock", role: "destination", description: "Retriever for RAG" }
+        ]
     },
     "step-functions": {
         name: "AWS Step Functions",
-        category: "Compute & Serverless",
-        description: "Visual workflow orchestration for distributed applications.",
+        category: "App Integration",
+        description: "Visual workflow service that helps developers use AWS services to build distributed applications.",
         whatItIs: "AWS Step Functions is a visual workflow service that helps developers use AWS services to build distributed applications, automate processes, orchestrate microservices, and create data and machine learning (ML) pipelines.",
         howWeUsedIt: [
-            "Building end-to-end RAG workflows (ingest → chunk → embed → store)",
-            "Coordinating document processing pipelines with Textract + Comprehend",
-            "Automating model evaluation, testing, and rollout workflows",
-            "Parallel processing of training data transformations",
-            "Managing long-running AI workloads via asynchronous patterns"
+            "Orchestrating complex RAG ingestion pipelines (S3 -> Textract -> Embedding -> Vector DB)",
+            "Managing long-running model training workflows",
+            "Handling human-in-the-loop approval steps for GenAI outputs",
+            "Retrying failed API calls to Bedrock or Lambda",
+            "Coordinating multi-step agentic workflows"
         ],
         bestPractices: [
-            "Use Map states for parallel workloads",
-            "Add error handling and retry logic for resilience",
-            "Store workflow metadata in DynamoDB",
-            "Use Step Functions Express for high-throughput tasks",
-            "Keep tasks small and idempotent"
+            "Use Express Workflows for high-volume, short-duration events",
+            "Implement catch/retry logic for robust error handling",
+            "Pass state efficiently between steps to minimize payload size",
+            "Use Standard Workflows for long-running processes (>5 mins)",
+            "Integrate with X-Ray for end-to-end tracing"
         ],
-        whyNeeded: "AI systems require multi-step orchestration — Step Functions ensures reliability, observability, and scalable automation across GenAI pipelines."
+        whyNeeded: "Step Functions is the nervous system of complex GenAI applications—managing state, retries, and orchestration across distributed services to ensure reliability.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "destination", description: "Orchestrates" },
+            { name: "Amazon SageMaker", slug: "sagemaker", role: "destination", description: "Orchestrates training" },
+            { name: "Amazon DynamoDB", slug: "dynamodb", role: "integration", description: "Stores state" }
+        ]
     },
     "eventbridge": {
         name: "Amazon EventBridge",
-        category: "Compute & Serverless",
-        description: "Serverless event bus that connects application data from your own apps, SaaS, and AWS services.",
-        whatItIs: "Amazon EventBridge is a serverless event bus that makes it easier to build event-driven applications at scale using events generated from your applications, integrated Software-as-a-Service (SaaS) applications, and AWS services.",
+        category: "App Integration",
+        description: "Serverless event bus that makes it easier to build event-driven applications.",
+        whatItIs: "Amazon EventBridge is a serverless event bus that makes it easier to build event-driven applications at scale using events generated from your applications, integrated SaaS applications, and AWS services.",
         howWeUsedIt: [
-            "Triggering document ingestion workflows",
-            "Orchestrating GenAI microservices",
-            "Automating model retraining on new data arrival",
-            "Connecting CRM/ERP events to AI pipelines",
-            "Integrating Bedrock logs for observability dashboards"
+            "Triggering model retraining pipelines on S3 data upload",
+            "Decoupling GenAI microservices for scalability",
+            "Scheduling periodic batch inference jobs",
+            "Routing alerts from CloudWatch to notification systems",
+            "Integrating third-party SaaS events into AI workflows"
         ],
         bestPractices: [
-            "Use schema registry for event governance",
-            "Keep payloads minimal and pass S3 references",
-            "Use retry policies to avoid dropped events",
-            "Use fine-grained access for event buses",
-            "Integrate with Step Functions for advanced workflows"
+            "Use schema registry to validate event structures",
+            "Implement archive and replay for debugging",
+            "Use rules to filter events at the source",
+            "Monitor dead-letter queues for failed deliveries",
+            "Tag resources for cost allocation"
         ],
-        whyNeeded: "EventBridge enables real-time, decoupled GenAI architectures where ingestion, processing, and inference systems communicate reliably and scalably."
+        whyNeeded: "EventBridge enables loose coupling in GenAI architectures, allowing systems to react to changes (like new data or model drift) in real-time without tight dependencies.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "destination", description: "Triggers" },
+            { name: "Amazon S3", slug: "s3", role: "source", description: "Events from" },
+            { name: "AWS Step Functions", slug: "step-functions", role: "destination", description: "Triggers workflows" }
+        ]
     },
     "dynamodb": {
         name: "Amazon DynamoDB",
         category: "Storage & Database",
-        description: "Fast, flexible NoSQL database service for single-digit millisecond performance at any scale.",
-        whatItIs: "Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. It offers built-in security, continuous backups, automated multi-Region replication, in-memory caching, and data export tools.",
+        description: "Fast, flexible NoSQL database service for any scale.",
+        whatItIs: "Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. It offers built-in security, continuous backups, and automated multi-region replication.",
         howWeUsedIt: [
-            "Storing vector embeddings for retrieval-augmented generation",
-            "Caching frequent query results with DynamoDB Accelerator (DAX)",
-            "Maintaining conversation memory for LLM-driven agents",
-            "Storing document metadata before RAG execution",
-            "Supporting serverless apps via Lambda + DynamoDB"
+            "Storing user session history for conversational AI bots",
+            "Caching frequent RAG query results for low latency",
+            "Managing state for Step Functions workflows",
+            "Storing metadata for document ingestion pipelines",
+            "Serving high-concurrency read requests for feature stores"
         ],
         bestPractices: [
-            "Use partition key design to avoid hot partitions",
-            "Enable Auto Scaling or On-Demand capacity",
-            "Use DynamoDB Streams for event-driven updates",
-            "Encrypt tables with KMS and enable PITR",
-            "Use DAX for low-latency read-heavy workloads"
+            "Design partition keys for uniform data distribution",
+            "Use On-Demand capacity for unpredictable GenAI workloads",
+            "Enable point-in-time recovery (PITR) for data safety",
+            "Use TTL to automatically expire old session data",
+            "Integrate with DAX for microsecond response times"
         ],
-        whyNeeded: "DynamoDB is perfect for GenAI apps requiring fast retrieval, embeddings storage, or agent memory systems with massive scale and low latency."
+        whyNeeded: "DynamoDB provides the low-latency, high-throughput storage layer required for real-time GenAI applications, session management, and state tracking.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Accessed by" },
+            { name: "AWS Step Functions", slug: "step-functions", role: "source", description: "Accessed by" }
+        ]
     },
     "rds": {
         name: "Amazon RDS",
         category: "Storage & Database",
-        description: "Set up, operate, and scale a relational database in the cloud with just a few clicks.",
-        whatItIs: "Amazon Relational Database Service (Amazon RDS) is a collection of managed services that makes it simple to set up, operate, and scale databases in the cloud. It supports popular engines like PostgreSQL, MySQL, MariaDB, Oracle Database, and SQL Server.",
+        description: "Managed relational database service for MySQL, PostgreSQL, MariaDB, Oracle BYOL, or SQL Server.",
+        whatItIs: "Amazon Relational Database Service (Amazon RDS) makes it easy to set up, operate, and scale a relational database in the cloud. It provides cost-efficient and resizable capacity while automating time-consuming administration tasks.",
         howWeUsedIt: [
-            "Storing structured enterprise records used in GenAI knowledge bases",
-            "Running metadata queries for preprocessing content",
-            "Maintaining user preferences and personalization data",
-            "Integrating relational datasets into LLM workflows",
-            "Acting as source-of-truth for enterprise systems feeding GenAI"
+            "Storing structured business data for SQL-based RAG",
+            "Managing user profiles and application settings",
+            "Using pgvector on RDS PostgreSQL for vector embeddings",
+            "Transactional storage for billing and usage tracking",
+            "Integrating with QuickSight for business reporting"
         ],
         bestPractices: [
-            "Enable Multi-AZ for high availability",
-            "Use read replicas for scaling read-heavy workloads",
-            "Restrict public access and enforce VPC-only connectivity",
-            "Enable performance insights for query optimization",
-            "Automate backups and apply IAM authentication"
+            "Use Multi-AZ deployments for high availability",
+            "Enable Performance Insights to optimize queries",
+            "Use RDS Proxy to manage connection pools from Lambda",
+            "Encrypt data at rest and in transit",
+            "Schedule automated backups and snapshots"
         ],
-        whyNeeded: "RDS provides reliable and secure structured storage powering enterprise GenAI pipelines — ensuring consistent, durable access to transactional data feeding AI systems."
+        whyNeeded: "RDS is the backbone for structured data in enterprise applications. With vector extensions (like pgvector), it also serves as a robust, familiar vector store for RAG implementations.",
+        connections: [
+            { name: "AWS Lambda", slug: "lambda", role: "source", description: "Accessed by" },
+            { name: "Amazon VPC", slug: "vpc", role: "integration", description: "Secured by" },
+            { name: "Amazon QuickSight", slug: "quicksight", role: "destination", description: "Visualized by" }
+        ]
     }
 };
