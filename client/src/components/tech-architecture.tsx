@@ -218,12 +218,12 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     const isBottom = pos.y > center.y + 20;
 
                     // Offset from the node center
-                    const offset = 75;
+                    const offset = 80;
                     let labelX = pos.x;
                     let labelY = pos.y;
                     let textAnchor: 'start' | 'middle' | 'end' = 'middle';
-                    let width = 140;
-                    let height = 55;
+                    let width = 160;
+                    let height = 60;
 
                     if (isRight) {
                         labelX = pos.x + offset;
@@ -272,7 +272,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                     fontFamily: 'monospace',
                                     color: 'hsl(var(--muted-foreground))',
                                     background: 'rgba(255,255,255,0.95)',
-                                    padding: '6px 10px',
+                                    padding: '5px 8px',
                                     borderRadius: '6px',
                                     backdropFilter: 'blur(8px)',
                                     border: '1px solid rgba(0,0,0,0.08)',
