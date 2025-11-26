@@ -37,7 +37,7 @@ export default function TechDetail() {
 
     return (
         <Layout>
-            <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-32">
+            <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-24 pb-12">
                 {/* Back Button */}
                 <Link href="/">
                     <motion.a
