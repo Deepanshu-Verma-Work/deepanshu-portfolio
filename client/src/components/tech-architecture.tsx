@@ -222,8 +222,8 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     let labelX = pos.x;
                     let labelY = pos.y;
                     let textAnchor: 'start' | 'middle' | 'end' = 'middle';
-                    let width = 120;
-                    let height = 40;
+                    let width = 140;
+                    let height = 55;
 
                     if (isRight) {
                         labelX = pos.x + offset;
@@ -277,21 +277,23 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                     backdropFilter: 'blur(8px)',
                                     border: '1px solid rgba(0,0,0,0.08)',
                                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                    textAlign: textAnchor === 'start' ? 'left' : textAnchor === 'end' ? 'right' : 'center'
+                                    textAlign: textAnchor === 'start' ? 'left' : textAnchor === 'end' ? 'right' : 'center',
+                                    wordWrap: 'break-word',
+                                    overflow: 'visible'
                                 }}
                             >
                                 <span style={{
                                     display: 'block',
                                     opacity: 0.7,
                                     marginBottom: '2px',
-                                    fontSize: '9px',
+                                    fontSize: '8px',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.05em',
                                     fontWeight: 600
                                 }}>
                                     {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
                                 </span>
-                                <span style={{ fontWeight: 700, color: 'hsl(var(--foreground))' }}>
+                                <span style={{ fontWeight: 700, color: 'hsl(var(--foreground))', fontSize: '11px', lineHeight: '1.3' }}>
                                     {conn.description}
                                 </span>
                             </div>
