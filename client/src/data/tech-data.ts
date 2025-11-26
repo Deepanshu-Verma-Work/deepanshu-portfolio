@@ -1,3 +1,4 @@
+
 export interface TechData {
     name: string;
     category: string;
@@ -11,14 +12,14 @@ export interface TechData {
 export const techData: Record<string, TechData> = {
     "ec2": {
         name: "Amazon EC2",
-        category: "Compute",
+        category: "Compute & Serverless",
         description: "Secure, scalable virtual servers in the cloud.",
-        whatItIs: "Amazon EC2 provides resizable compute capacity in the cloud. It allows enterprises to run workloads ranging from batch processing to custom GenAI model hosting with complete control over the OS, networking, and resource configuration.",
+        whatItIs: "Amazon Elastic Compute Cloud (Amazon EC2) provides resizable compute capacity in the cloud. It allows enterprises to run workloads ranging from batch processing to custom GenAI model hosting with complete control over the OS, networking, and resource configuration.",
         howWeUsedIt: [
-            "Hosting GPU-optimized instances for custom GenAI model fine-tuning",
+            "Hosting GPU-optimized instances (G5/P4) for custom GenAI model fine-tuning",
             "Running microservices and backend APIs for model orchestration",
             "Creating auto-scaling groups for high-availability inference clusters",
-            "Launching spot fleet for distributed model training workloads",
+            "Launching spot fleets for distributed model training workloads",
             "Running containerized workloads using EC2 + ECS/EKS combination"
         ],
         bestPractices: [
@@ -32,14 +33,14 @@ export const techData: Record<string, TechData> = {
     },
     "s3": {
         name: "Amazon S3",
-        category: "Storage",
-        description: "Highly durable, scalable, object storage service.",
-        whatItIs: "Amazon S3 provides secure, cost-effective storage ideal for datasets, embeddings, training artifacts, model checkpoints, and content delivery pipelines. It is designed for 11 9s durability with unlimited scalability.",
+        category: "Storage & Database",
+        description: "Object storage built to store and retrieve any amount of data.",
+        whatItIs: "Amazon Simple Storage Service (Amazon S3) is an object storage service offering industry-leading scalability, data availability, security, and performance. It is the foundational storage layer for data lakes and GenAI datasets.",
         howWeUsedIt: [
-            "Storing training datasets for LLM/NLP model pipelines",
+            "Storing massive training datasets for LLM/NLP model pipelines",
             "Hosting model artifacts for SageMaker and Bedrock custom models",
             "Serving static assets for portfolio, dashboards, and web apps",
-            "Integrating with Athena for serverless querying",
+            "Integrating with Athena for serverless querying of logs and data",
             "Managing secure data lake layers: Raw → Curated → Feature"
         ],
         bestPractices: [
@@ -53,9 +54,9 @@ export const techData: Record<string, TechData> = {
     },
     "emr": {
         name: "Amazon EMR",
-        category: "Big Data & Analytics",
-        description: "Managed Hadoop, Spark, and big-data processing service.",
-        whatItIs: "Amazon EMR provides a scalable, fully managed cluster platform for processing massive datasets using Spark, Presto, Hadoop, and Hive. It powers enterprise data transformations essential for GenAI training pipelines.",
+        category: "Data & Analytics",
+        description: "Cloud big data platform for running large-scale distributed data processing jobs.",
+        whatItIs: "Amazon EMR is the industry-leading cloud big data platform for processing vast amounts of data using open source tools such as Apache Spark, Apache Hive, Apache HBase, Apache Flink, and Presto.",
         howWeUsedIt: [
             "Running distributed preprocessing for large training corpora",
             "Transforming raw enterprise data for NLP model ingestion",
@@ -75,8 +76,8 @@ export const techData: Record<string, TechData> = {
     "vpc": {
         name: "Amazon VPC",
         category: "Networking & Security",
-        description: "Isolated, secure virtual network environment in AWS.",
-        whatItIs: "Amazon VPC provides full control over network architecture, including subnets, routing, security groups, and network ACLs. It ensures enterprise-grade isolation for GenAI workloads, foundation models, and backend APIs.",
+        description: "Define and launch AWS resources in a logically isolated virtual network.",
+        whatItIs: "Amazon Virtual Private Cloud (Amazon VPC) gives you full control over your virtual networking environment, including resource placement, connectivity, and security. It is the network foundation for secure cloud applications.",
         howWeUsedIt: [
             "Creating isolated subnets for private AI inference endpoints",
             "Configuring VPC Endpoints for Bedrock, S3, DynamoDB",
@@ -94,10 +95,10 @@ export const techData: Record<string, TechData> = {
         whyNeeded: "GenAI workloads must be deployed in secure, compliant network zones—VPC ensures isolation, controlled access, and enterprise-grade governance for sensitive AI ecosystems."
     },
     "iam": {
-        name: "AWS Identity and Access Management (IAM)",
-        category: "Security & Governance",
-        description: "Manage identities, roles, and permissions securely.",
-        whatItIs: "IAM enables fine-grained access control across AWS resources. It is essential for securing GenAI pipelines, ensuring models, data, and APIs are accessed only by authorized systems and users.",
+        name: "AWS IAM",
+        category: "Networking & Security",
+        description: "Securely manage identities and access to AWS services and resources.",
+        whatItIs: "AWS Identity and Access Management (IAM) enables you to manage access to AWS services and resources securely. Using IAM, you can create and manage AWS users and groups, and use permissions to allow and deny their access to AWS resources.",
         howWeUsedIt: [
             "Defining least-privilege roles for Bedrock, S3, SageMaker",
             "Managing cross-account roles for enterprise AI workloads",
@@ -116,9 +117,9 @@ export const techData: Record<string, TechData> = {
     },
     "sagemaker": {
         name: "Amazon SageMaker",
-        category: "Machine Learning",
-        description: "Build, train, and deploy ML models at scale",
-        whatItIs: "Amazon SageMaker is a fully managed machine learning service that enables data scientists and developers to build, train, and deploy machine learning models quickly. It removes the heavy lifting from each step of the machine learning process to make it easier to develop high-quality models.",
+        category: "AI & Machine Learning",
+        description: "Build, train, and deploy machine learning models for any use case.",
+        whatItIs: "Amazon SageMaker is a fully managed service that brings together a broad set of tools to enable high-performance, low-cost machine learning for any use case. It covers the entire ML lifecycle from labeling to deployment.",
         howWeUsedIt: [
             "Training custom NLP models for document classification",
             "Deploying real-time inference endpoints for production workloads",
@@ -133,13 +134,13 @@ export const techData: Record<string, TechData> = {
             "Use SageMaker Debugger to identify training issues early",
             "Implement proper IAM roles with least privilege access"
         ],
-        whyNeeded: "SageMaker accelerates the ML development lifecycle by providing pre-built algorithms, managed infrastructure, and integrated tools. It reduces time-to-market for ML models from months to weeks, while ensuring scalability and cost-efficiency. For GenAI applications, it provides the foundation for training and deploying custom models alongside foundation models from Bedrock."
+        whyNeeded: "SageMaker accelerates the ML development lifecycle by providing pre-built algorithms, managed infrastructure, and integrated tools. It reduces time-to-market for ML models from months to weeks, while ensuring scalability and cost-efficiency."
     },
     "bedrock": {
         name: "Amazon Bedrock",
-        category: "Generative AI",
-        description: "Fully managed platform to build and scale GenAI applications.",
-        whatItIs: "Amazon Bedrock provides access to foundation models (Anthropic, Meta, Amazon, Mistral, Cohere) with enterprise-ready security, private VPC access, and managed orchestration. It supports agents, knowledge bases, embeddings, and guardrails.",
+        category: "AI & Machine Learning",
+        description: "The easiest way to build and scale generative AI applications with foundation models.",
+        whatItIs: "Amazon Bedrock is a fully managed service that makes high-performing foundation models (FMs) from leading AI startups and Amazon available via a single API, along with a broad set of capabilities to build generative AI applications with security, privacy, and responsible AI.",
         howWeUsedIt: [
             "Building enterprise RAG pipelines using Knowledge Bases",
             "Creating domain-specific agents for workflow automation",
@@ -158,9 +159,9 @@ export const techData: Record<string, TechData> = {
     },
     "cloudfront": {
         name: "Amazon CloudFront",
-        category: "Content Delivery & Edge",
-        description: "Global CDN for fast, secure content delivery.",
-        whatItIs: "CloudFront accelerates delivery of static and dynamic content using a global edge network. It is commonly used for UI hosting, dashboards, LLM frontends, and API acceleration.",
+        category: "Networking & Security",
+        description: "Securely deliver content with low latency and high transfer speeds.",
+        whatItIs: "Amazon CloudFront is a content delivery network (CDN) service built for high performance, security, and developer convenience. It delivers data, videos, applications, and APIs to customers globally with low latency.",
         howWeUsedIt: [
             "Deploying performant frontend for GenAI applications",
             "Caching static responses from RAG-powered endpoints",
@@ -179,9 +180,9 @@ export const techData: Record<string, TechData> = {
     },
     "cloudformation": {
         name: "AWS CloudFormation",
-        category: "Infrastructure as Code",
-        description: "Automate provisioning of AWS resources using templates.",
-        whatItIs: "CloudFormation enables IaC-driven deployments of scalable, consistent, repeatable infrastructure. It is essential for enterprise GenAI platforms that require controlled, versioned, multi-account deployments.",
+        category: "DevOps & Infrastructure",
+        description: "Speed up cloud provisioning with infrastructure as code.",
+        whatItIs: "AWS CloudFormation lets you model, provision, and manage AWS and third-party resources by treating infrastructure as code. It allows you to build and rebuild your infrastructure and applications, without having to perform manual actions or write custom scripts.",
         howWeUsedIt: [
             "Provisioning secure VPCs for AI workloads",
             "Deploying SageMaker pipelines and inference infrastructure",
@@ -200,9 +201,9 @@ export const techData: Record<string, TechData> = {
     },
     "athena": {
         name: "Amazon Athena",
-        category: "Serverless Analytics",
-        description: "Interactive SQL query engine for S3 data lakes.",
-        whatItIs: "Athena allows serverless SQL queries directly on S3 using Presto. It enables fast analytics on unstructured and semi-structured datasets — often used to derive insights before feeding them into GenAI workflows.",
+        category: "Data & Analytics",
+        description: "Serverless, interactive analytics service built on open-source frameworks.",
+        whatItIs: "Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. It is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run.",
         howWeUsedIt: [
             "Querying curated datasets for GenAI training and evaluation",
             "Performing metadata extraction from document repositories",
@@ -221,9 +222,9 @@ export const techData: Record<string, TechData> = {
     },
     "quicksight": {
         name: "Amazon QuickSight",
-        category: "Business Intelligence",
-        description: "Scalable BI and dashboarding platform.",
-        whatItIs: "QuickSight provides serverless dashboards, ML insights, natural language queries, and rich visual analytics. It is used to monitor and report on AI workloads, model performance, and business KPIs.",
+        category: "Data & Analytics",
+        description: "Unified business intelligence at hyperscale.",
+        whatItIs: "Amazon QuickSight powers data-driven organizations with unified business intelligence (BI) at hyperscale. With QuickSight, all users can meet varying analytic needs from the same source of truth through modern interactive dashboards, paginated reports, embedded analytics, and natural language queries.",
         howWeUsedIt: [
             "Creating dashboards for GenAI usage analytics",
             "Visualizing model performance, latency, costs",
@@ -242,9 +243,9 @@ export const techData: Record<string, TechData> = {
     },
     "ollama": {
         name: "Ollama",
-        category: "Local LLM Runtime",
-        description: "Run open-source LLMs locally or on GPUs with simple APIs.",
-        whatItIs: "Ollama is a lightweight runtime to host open-source LLMs like LLaMA, Mistral, or Phi-3 locally. It integrates with AWS for hybrid GenAI workloads and enables cost-efficient on-premise or on-EC2 LLM inference.",
+        category: "AI & Machine Learning",
+        description: "Get up and running with large language models locally.",
+        whatItIs: "Ollama is an open-source tool that allows you to run open-source large language models, such as Llama 3, Mistral, and Gemma, locally on your machine. It simplifies the process of downloading, managing, and interacting with these models.",
         howWeUsedIt: [
             "Running local inference pipelines for PoC LLMs",
             "Hosting lightweight models on EC2 GPU instances",
@@ -263,9 +264,9 @@ export const techData: Record<string, TechData> = {
     },
     "cognito": {
         name: "Amazon Cognito",
-        category: "Identity & Access Management",
-        description: "Secure user authentication and authorization for applications.",
-        whatItIs: "Amazon Cognito provides fully managed authentication, user pools, identity pools, OAuth flows, and MFA. It is essential for enterprise-grade GenAI applications requiring secure login, user profiling, and access control.",
+        category: "Networking & Security",
+        description: "Customer identity and access management for any application.",
+        whatItIs: "Amazon Cognito delivers frictionless customer identity and access management (CIAM) with a cost-effective and customizable platform. It handles user authentication and authorization for your web and mobile apps.",
         howWeUsedIt: [
             "Enabling secure sign-in for GenAI dashboards and portals",
             "Implementing user-level access control for RAG applications",
@@ -284,9 +285,9 @@ export const techData: Record<string, TechData> = {
     },
     "lambda": {
         name: "AWS Lambda",
-        category: "Serverless Compute",
-        description: "Event-driven, serverless function execution.",
-        whatItIs: "Lambda allows executing code on-demand without provisioning servers. It is ideal for lightweight GenAI pipelines, creating ingestion triggers, pre/post-processing, and orchestrating multi-step workflows.",
+        category: "Compute & Serverless",
+        description: "Run code without thinking about servers or clusters.",
+        whatItIs: "AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and SaaS applications.",
         howWeUsedIt: [
             "Chunking documents before embedding generation",
             "Calling Bedrock models for inference via serverless APIs",
@@ -305,9 +306,9 @@ export const techData: Record<string, TechData> = {
     },
     "rekognition": {
         name: "Amazon Rekognition",
-        category: "AI Services – Vision",
-        description: "Image and video analysis at scale.",
-        whatItIs: "Amazon Rekognition provides pre-trained deep learning capabilities for object detection, text extraction, face recognition, and video analytics without requiring model training.",
+        category: "AI & Machine Learning",
+        description: "Automate image and video analysis with machine learning.",
+        whatItIs: "Amazon Rekognition offers pre-trained and customizable computer vision (CV) capabilities to extract information and insights from your images and videos. It can identify objects, people, text, scenes, and activities.",
         howWeUsedIt: [
             "Extracting images and metadata for GenAI-enhanced search",
             "Performing OCR on visual documents before feeding into RAG",
@@ -326,9 +327,9 @@ export const techData: Record<string, TechData> = {
     },
     "comprehend": {
         name: "Amazon Comprehend",
-        category: "AI Services – NLP",
-        description: "Fully managed NLP for entity extraction, sentiment, and classification.",
-        whatItIs: "Amazon Comprehend provides NLP capabilities such as sentiment analysis, PII detection, topic modeling, and entity recognition using pre-trained and custom models.",
+        category: "AI & Machine Learning",
+        description: "Derive and understand valuable insights from text within documents.",
+        whatItIs: "Amazon Comprehend is a natural-language processing (NLP) service that uses machine learning to uncover valuable insights and connections in text. It can extract sentiment, entities, key phrases, and PII.",
         howWeUsedIt: [
             "Extracting entities before feeding data into embedding pipelines",
             "Detecting PII in documents processed by GenAI models",
@@ -347,9 +348,9 @@ export const techData: Record<string, TechData> = {
     },
     "textract": {
         name: "Amazon Textract",
-        category: "AI Services – Document Processing",
-        description: "Extract structured text, tables, and forms from documents.",
-        whatItIs: "Textract automatically extracts text, tables, key-value pairs, and metadata from scanned or digital documents using ML, without manual template creation.",
+        category: "AI & Machine Learning",
+        description: "Automatically extract printed text, handwriting, and data from any document.",
+        whatItIs: "Amazon Textract is a machine learning (ML) service that automatically extracts text, handwriting, and data from scanned documents. It goes beyond simple OCR to identify, understand, and extract data from forms and tables.",
         howWeUsedIt: [
             "Digitizing enterprise PDFs for RAG ingestion",
             "Extracting table data for downstream analytics",
@@ -368,9 +369,9 @@ export const techData: Record<string, TechData> = {
     },
     "polly": {
         name: "Amazon Polly",
-        category: "AI Services – Speech",
-        description: "Text-to-speech engine with lifelike voice generation.",
-        whatItIs: "Amazon Polly converts text into natural-sounding speech, enabling voice-enabled GenAI applications, chatbots, and content automation pipelines.",
+        category: "AI & Machine Learning",
+        description: "Turn text into lifelike speech using deep learning.",
+        whatItIs: "Amazon Polly is a service that turns text into lifelike speech, allowing you to create applications that talk, and build entirely new categories of speech-enabled products. It uses advanced deep learning technologies to synthesize natural-sounding human speech.",
         howWeUsedIt: [
             "Generating narration for enterprise training content",
             "Voice responses for conversational agents powered by LLMs",
@@ -389,9 +390,9 @@ export const techData: Record<string, TechData> = {
     },
     "lex": {
         name: "Amazon Lex",
-        category: "Conversational AI",
-        description: "Build conversational chatbots using speech and text.",
-        whatItIs: "Amazon Lex enables building conversational interfaces using automatic speech recognition and natural language understanding. Lex can be combined with LLMs to create hybrid enterprise chatbots.",
+        category: "AI & Machine Learning",
+        description: "Build voice and text chatbots with conversational AI.",
+        whatItIs: "Amazon Lex is a fully managed AI service with advanced natural language models to design, build, test, and deploy conversational interfaces in applications. It provides the deep functionality and flexibility of automatic speech recognition (ASR) and natural language understanding (NLU).",
         howWeUsedIt: [
             "Building voice-enabled customer support bots",
             "Routing user queries to Bedrock for complex reasoning",
@@ -410,9 +411,9 @@ export const techData: Record<string, TechData> = {
     },
     "kendra": {
         name: "Amazon Kendra",
-        category: "AI Search",
-        description: "Intelligent enterprise search with semantic understanding.",
-        whatItIs: "Amazon Kendra is an enterprise search service with deep ML-based ranking, semantic retrieval, and connectors to corporate data sources.",
+        category: "AI & Machine Learning",
+        description: "Intelligent enterprise search powered by machine learning.",
+        whatItIs: "Amazon Kendra is an intelligent search service powered by machine learning. It reimagines enterprise search for your websites and applications so your employees and customers can easily find the content they are looking for, even when it's scattered across multiple locations.",
         howWeUsedIt: [
             "Building retrieval pipelines for GenAI-assisted search",
             "Integrating with Bedrock RAG to improve accuracy",
@@ -431,9 +432,9 @@ export const techData: Record<string, TechData> = {
     },
     "step-functions": {
         name: "AWS Step Functions",
-        category: "Orchestration",
-        description: "Serverless workflow orchestration for distributed systems.",
-        whatItIs: "Step Functions coordinate distributed tasks across Lambda, Bedrock, SageMaker, DynamoDB, and more. It provides state management, retries, parallelism, and event-driven orchestration.",
+        category: "Compute & Serverless",
+        description: "Visual workflow orchestration for distributed applications.",
+        whatItIs: "AWS Step Functions is a visual workflow service that helps developers use AWS services to build distributed applications, automate processes, orchestrate microservices, and create data and machine learning (ML) pipelines.",
         howWeUsedIt: [
             "Building end-to-end RAG workflows (ingest → chunk → embed → store)",
             "Coordinating document processing pipelines with Textract + Comprehend",
@@ -452,9 +453,9 @@ export const techData: Record<string, TechData> = {
     },
     "eventbridge": {
         name: "Amazon EventBridge",
-        category: "Event-Driven Architecture",
-        description: "Serverless event bus for connecting applications.",
-        whatItIs: "EventBridge enables event-driven communication across AWS services, SaaS systems, and custom applications. It is essential for decoupled GenAI pipelines and automation.",
+        category: "Compute & Serverless",
+        description: "Serverless event bus that connects application data from your own apps, SaaS, and AWS services.",
+        whatItIs: "Amazon EventBridge is a serverless event bus that makes it easier to build event-driven applications at scale using events generated from your applications, integrated Software-as-a-Service (SaaS) applications, and AWS services.",
         howWeUsedIt: [
             "Triggering document ingestion workflows",
             "Orchestrating GenAI microservices",
@@ -473,9 +474,9 @@ export const techData: Record<string, TechData> = {
     },
     "dynamodb": {
         name: "Amazon DynamoDB",
-        category: "NoSQL Database",
-        description: "Fast, fully managed NoSQL database for low-latency workloads.",
-        whatItIs: "DynamoDB provides single-digit millisecond latency at scale. Ideal for storing embeddings, chat session history, RAG metadata, and AI agent states.",
+        category: "Storage & Database",
+        description: "Fast, flexible NoSQL database service for single-digit millisecond performance at any scale.",
+        whatItIs: "Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale. It offers built-in security, continuous backups, automated multi-Region replication, in-memory caching, and data export tools.",
         howWeUsedIt: [
             "Storing vector embeddings for retrieval-augmented generation",
             "Caching frequent query results with DynamoDB Accelerator (DAX)",
@@ -494,9 +495,9 @@ export const techData: Record<string, TechData> = {
     },
     "rds": {
         name: "Amazon RDS",
-        category: "Relational Databases",
-        description: "Managed SQL databases for transactional workloads.",
-        whatItIs: "Amazon RDS provides automated backups, monitoring, patching, and scaling for relational databases such as MySQL, PostgreSQL, Oracle, and SQL Server — ideal for enterprise AI systems with structured transactional data.",
+        category: "Storage & Database",
+        description: "Set up, operate, and scale a relational database in the cloud with just a few clicks.",
+        whatItIs: "Amazon Relational Database Service (Amazon RDS) is a collection of managed services that makes it simple to set up, operate, and scale databases in the cloud. It supports popular engines like PostgreSQL, MySQL, MariaDB, Oracle Database, and SQL Server.",
         howWeUsedIt: [
             "Storing structured enterprise records used in GenAI knowledge bases",
             "Running metadata queries for preprocessing content",

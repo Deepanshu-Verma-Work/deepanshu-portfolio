@@ -12,6 +12,13 @@ export default function TechDetail() {
     const slug = params.slug as string;
     const tech = techData[slug];
 
+    // Find related technologies in the same category
+    const relatedTechs = tech
+        ? Object.entries(techData)
+            .filter(([key, t]) => t.category === tech.category && key !== slug)
+            .slice(0, 3)
+        : [];
+
     if (!tech) {
         return (
             <Layout>
@@ -58,6 +65,24 @@ export default function TechDetail() {
                     <p className="text-xl text-muted-foreground font-heading max-w-2xl">
                         {tech.description}
                     </p>
+                </motion.div>
+
+                {/* Hero Visual Pattern */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="w-full h-48 md:h-64 bg-muted/30 border border-border mb-24 relative overflow-hidden group"
+                >
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background"></div>
+
+                    {/* Abstract Tech Representation */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                        <div className="w-32 h-32 border-2 border-foreground rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <div className="absolute w-24 h-24 border border-foreground/50 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div className="absolute w-4 h-4 bg-foreground rounded-full"></div>
+                    </div>
                 </motion.div>
 
                 {/* Content Sections - Reordered: What, Why, How, Best */}
@@ -139,6 +164,37 @@ export default function TechDetail() {
                             ))}
                         </div>
                     </motion.section>
+
+                    {/* Related Technologies */}
+                    {relatedTechs.length > 0 && (
+                        <motion.section
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="border-t border-border pt-12 pb-24"
+                        >
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-8">
+                                Related Technologies
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {relatedTechs.map(([key, t], index) => (
+                                    <Link key={key} href={`/tech/${key}`}>
+                                        <div className="group border border-border p-6 cursor-pointer hover:bg-muted/5 transition-colors">
+                                            <span className="text-xs font-mono text-muted-foreground block mb-2">
+                                                {t.category}
+                                            </span>
+                                            <h3 className="font-display font-bold text-lg group-hover:text-primary transition-colors">
+                                                {t.name}
+                                            </h3>
+                                            <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                                                {t.description}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </motion.section>
+                    )}
                 </div>
             </div>
 

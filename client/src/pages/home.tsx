@@ -132,22 +132,19 @@ export default function Home() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-10%" }}
-                        transition={{ duration: 0.4, delay: index * 0.01 }}
-                        className="group relative border border-border p-4 md:p-6 hover:bg-foreground hover:text-background transition-all cursor-pointer overflow-hidden"
+                        transition={{ duration: 0.4, delay: index * 0.05 }}
+                        className="group relative border border-border p-6 md:p-8 hover:border-foreground/50 transition-all cursor-pointer overflow-hidden bg-background hover:bg-muted/5"
                       >
-                        <div className="relative z-10">
-                          <div className="relative">
-                            <span className="font-display font-bold text-sm md:text-base uppercase tracking-tight flex items-center gap-1">
-                              <span className="opacity-0 group-hover:opacity-100 transition-opacity">$</span>
-                              {tech.name}
-                            </span>
-                            {/* Cursor positioned absolutely at the end */}
-                            <span className="absolute right-0 top-0 inline-block w-2 h-4 bg-current opacity-0 group-hover:opacity-100 group-hover:animate-pulse"></span>
-                          </div>
-                          <p className="font-mono text-[10px] md:text-xs mt-2 opacity-0 group-hover:opacity-60 transition-opacity duration-300 leading-tight">
+                        <div className="relative z-10 flex flex-col h-full justify-between gap-4">
+                          <span className="font-display font-bold text-sm md:text-base uppercase tracking-tight group-hover:text-primary transition-colors">
+                            {tech.name}
+                          </span>
+                          <p className="font-mono text-[10px] md:text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-tight">
                             {tech.desc}
                           </p>
                         </div>
+                        {/* Subtle corner accent */}
+                        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-transparent group-hover:border-foreground transition-all duration-300"></div>
                       </motion.div>
                     </Link>
                   ))}
