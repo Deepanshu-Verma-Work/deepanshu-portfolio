@@ -218,32 +218,33 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     const isBottom = pos.y > center.y + 20;
 
                     // Offset from the node center
-                    const offset = 80;
+                    const offset = 85;
                     let labelX = pos.x;
                     let labelY = pos.y;
                     let textAnchor: 'start' | 'middle' | 'end' = 'middle';
-                    let width = 160;
-                    let height = 60;
+                    let maxWidth = 180;
+                    let estimatedHeight = 65;
+
 
                     if (isRight) {
                         labelX = pos.x + offset;
-                        labelY = pos.y - height / 2;
+                        labelY = pos.y - estimatedHeight / 2;
                         textAnchor = 'start';
                     } else if (isLeft) {
-                        labelX = pos.x - offset - width;
-                        labelY = pos.y - height / 2;
+                        labelX = pos.x - offset - maxWidth;
+                        labelY = pos.y - estimatedHeight / 2;
                         textAnchor = 'end';
                     } else if (isTop) {
-                        labelX = pos.x - width / 2;
-                        labelY = pos.y - offset - height;
+                        labelX = pos.x - maxWidth / 2;
+                        labelY = pos.y - offset - estimatedHeight;
                         textAnchor = 'middle';
                     } else if (isBottom) {
-                        labelX = pos.x - width / 2;
+                        labelX = pos.x - maxWidth / 2;
                         labelY = pos.y + offset;
                         textAnchor = 'middle';
                     } else {
                         // Fallback for radial
-                        labelX = pos.x - width / 2;
+                        labelX = pos.x - maxWidth / 2;
                         labelY = pos.y + 45;
                         textAnchor = 'middle';
                     }
@@ -253,16 +254,17 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                             key={`label-${index}`}
                             x={labelX}
                             y={labelY}
-                            width={width}
-                            height={height}
+                            width={maxWidth}
+                            height={estimatedHeight}
+                            overflow="visible"
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 1.5 + index * 0.1 }}
                         >
                             <div
                                 style={{
-                                    width: '100%',
-                                    height: '100%',
+                                    maxWidth: `${maxWidth}px`,
+                                    minWidth: '100px',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: textAnchor === 'start' ? 'flex-start' : textAnchor === 'end' ? 'flex-end' : 'center',
@@ -278,8 +280,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                     border: '1px solid rgba(0,0,0,0.08)',
                                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                                     textAlign: textAnchor === 'start' ? 'left' : textAnchor === 'end' ? 'right' : 'center',
-                                    wordWrap: 'break-word',
-                                    overflow: 'visible'
+                                    whiteSpace: 'normal'
                                 }}
                             >
                                 <span style={{
