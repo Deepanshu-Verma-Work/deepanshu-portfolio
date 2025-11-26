@@ -206,102 +206,70 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                         {getTechLabel(tech.name)}
                     </motion.text>
                 </g>
-
-                {/* Labels for connections - Using foreignObject inside SVG */}
-                {connections.map((conn, index) => {
-                    const pos = getPosition(index, connections.length);
-
-                    // Determine alignment based on coordinates
-                    const isRight = pos.x > center.x + 20;
-                    const isLeft = pos.x < center.x - 20;
-                    const isTop = pos.y < center.y - 20;
-                    const isBottom = pos.y > center.y + 20;
-
-                    // Offset from the node center
-                    const offset = 90;
-                    let labelX = pos.x;
-                    let labelY = pos.y;
-                    let textAnchor: 'start' | 'middle' | 'end' = 'middle';
-                    let maxWidth = 250;
-                    let estimatedHeight = 80;
-
-
-                    if (isRight) {
-                        labelX = pos.x + offset;
-                        labelY = pos.y - estimatedHeight / 2;
-                        textAnchor = 'start';
-                    } else if (isLeft) {
-                        labelX = pos.x - offset - maxWidth;
-                        labelY = pos.y - estimatedHeight / 2;
-                        textAnchor = 'end';
-                    } else if (isTop) {
-                        labelX = pos.x - maxWidth / 2;
-                        labelY = pos.y - offset - estimatedHeight;
-                        textAnchor = 'middle';
-                    } else if (isBottom) {
-                        labelX = pos.x - maxWidth / 2;
-                        labelY = pos.y + offset;
-                        textAnchor = 'middle';
-                    } else {
-                        // Fallback for radial
-                        labelX = pos.x - maxWidth / 2;
-                        labelY = pos.y + 45;
-                        textAnchor = 'middle';
-                    }
-
-                    return (
-                        <motion.foreignObject
-                            key={`label-${index}`}
-                            x={labelX}
-                            y={labelY}
-                            width={maxWidth}
-                            height={estimatedHeight}
-                            overflow="visible"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 1.5 + index * 0.1 }}
-                        >
-                            <div
-                                style={{
-                                    maxWidth: `${maxWidth}px`,
-                                    minWidth: '100px',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: textAnchor === 'start' ? 'flex-start' : textAnchor === 'end' ? 'flex-end' : 'center',
-                                    justifyContent: 'center',
-                                    pointerEvents: 'none',
-                                    fontSize: '10px',
-                                    fontFamily: 'monospace',
-                                    color: 'hsl(var(--muted-foreground))',
-                                    background: 'rgba(255,255,255,0.95)',
-                                    padding: '5px 8px',
-                                    borderRadius: '6px',
-                                    backdropFilter: 'blur(8px)',
-                                    border: '1px solid rgba(0,0,0,0.08)',
-                                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                    textAlign: textAnchor === 'start' ? 'left' : textAnchor === 'end' ? 'right' : 'center',
-                                    whiteSpace: 'normal'
-                                }}
-                            >
-                                <span style={{
-                                    display: 'block',
-                                    opacity: 0.7,
-                                    marginBottom: '2px',
-                                    fontSize: '8px',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.05em',
-                                    fontWeight: 600
-                                }}>
-                                    {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
-                                </span>
-                                <span style={{ fontWeight: 700, color: 'hsl(var(--foreground))', fontSize: '11px', lineHeight: '1.3' }}>
-                                    {conn.description}
-                                </span>
-                            </div>
-                        </motion.foreignObject>
-                    );
-                })}
             </svg>
+
+            {/* Labels for connections - Absolute positioned divs outside SVG */}
+            {connections.map((conn, index) => {
+                const pos = getPosition(index, connections.length);
+
+                // Determine alignment based on coordinates
+                const isRight = pos.x > center.x + 20;
+                const isLeft = pos.x < center.x - 20;
+                const isTop = pos.y < center.y - 20;
+                const isBottom = pos.y > center.y + 20;
+
+                // Calculate position - SVG is centered in the container
+                const offset = 95;
+                let labelStyle: React.CSSProperties = {
+                    position: 'absolute',
+                    pointerEvents: 'none',
+                    zIndex: 30,
+                    maxWidth: '200px',
+                    minWidth: '120px'
+                };
+
+                if (isRight) {
+                    labelStyle.left = `calc(50% + ${pos.x - center.x + offset}px)`;
+                    labelStyle.top = `calc(50% + ${pos.y - center.y}px)`;
+                    labelStyle.transform = 'translateY(-50%)';
+                } else if (isLeft) {
+                    labelStyle.right = `calc(50% + ${center.x - pos.x + offset}px)`;
+                    labelStyle.top = `calc(50% + ${pos.y - center.y}px)`;
+                    labelStyle.transform = 'translateY(-50%)';
+                } else if (isTop) {
+                    labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
+                    labelStyle.bottom = `calc(50% + ${center.y - pos.y + offset}px)`;
+                    labelStyle.transform = 'translateX(-50%)';
+                } else if (isBottom) {
+                    labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
+                    labelStyle.top = `calc(50% + ${pos.y - center.y + offset}px)`;
+                    labelStyle.transform = 'translateX(-50%)';
+                } else {
+                    labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
+                    labelStyle.top = `calc(50% + ${pos.y - center.y + 50}px)`;
+                    labelStyle.transform = 'translateX(-50%)';
+                }
+
+                return (
+                    <motion.div
+                        key={`label-${index}`}
+                        style={labelStyle}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1.5 + index * 0.1 }}
+                        className="bg-background/95 backdrop-blur-sm px-3 py-2 rounded-md border border-border shadow-sm"
+                    >
+                        <div className={`text-[8px] uppercase tracking-wider font-semibold opacity-70 mb-0.5 ${isRight ? 'text-left' : isLeft ? 'text-right' : 'text-center'
+                            }`}>
+                            {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
+                        </div>
+                        <div className={`text-[11px] font-bold leading-tight ${isRight ? 'text-left' : isLeft ? 'text-right' : 'text-center'
+                            }`}>
+                            {conn.description}
+                        </div>
+                    </motion.div>
+                );
+            })}
 
             {/* Hover Info Overlay */}
             <div className="absolute bottom-4 left-0 right-0 text-center h-8 pointer-events-none">
