@@ -59,7 +59,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-20 md:mt-32 text-[12vw] leading-[0.8] font-display font-bold tracking-tighter uppercase text-foreground opacity-30"
+            className="mt-32 md:mt-32 text-[12vw] leading-[0.8] font-display font-bold tracking-tighter uppercase text-foreground opacity-30"
           >
             System<br />
             Architect
@@ -79,7 +79,7 @@ export default function Home() {
 
 
         {/* Tech Stack Section */}
-        <section className="mb-32 md:mb-48 border-t border-border pt-16 md:pt-24">
+        <section className="mb-20 md:mb-48 border-t border-border pt-16 md:pt-24">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -160,7 +160,7 @@ export default function Home() {
         </section>
 
         {/* Gallery Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-y-24 gap-x-8 mb-32">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-y-24 gap-x-8 mb-20 md:mb-32">
           {projects.map((project, index) => (
             <Link
               key={project.id}
@@ -207,7 +207,7 @@ export default function Home() {
         </section>
 
         {/* Minimal Text Section */}
-        <section className="py-32 md:py-48 border-t border-border">
+        <section className="py-20 md:py-48 border-t border-border">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter leading-none">
               Code is<br />Structure

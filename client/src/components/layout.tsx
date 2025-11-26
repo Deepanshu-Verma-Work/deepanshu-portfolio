@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background flex flex-col">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-foreground selection:text-background flex flex-col overflow-x-hidden">
       {/* Fixed Navigation Frame */}
       <nav className="fixed top-0 left-0 w-full p-6 md:p-12 z-50 flex justify-between items-start bg-background/95 backdrop-blur-sm">
         <Link href="/" className="pointer-events-auto group">
