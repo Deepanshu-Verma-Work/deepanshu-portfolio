@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Linkedin, Github } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -87,14 +87,38 @@ export default function ContactFooter() {
               Let's<br />Build
             </h2>
             <p className="font-heading text-lg md:text-xl text-background/60 max-w-md">
-              Initiate a collaboration. We are ready to architect your next digital milestone.
+              Ready to build something resilient? Let's turn your complex requirements into elegant, scalable architecture.
             </p>
           </div>
 
-          <div className="hidden md:block mt-12 space-y-2 font-mono text-xs text-background/40 uppercase tracking-widest">
-            <p>Pune, India</p>
-            <p>deepanshu.verma@zohomail.in</p>
-            <p>+91 7987170923</p>
+          <div className="hidden md:block mt-12 space-y-6">
+            <div className="space-y-2 font-mono text-xs text-background/40 uppercase tracking-widest">
+              <p>Pune, India</p>
+              <p>deepanshu.verma@zohomail.in</p>
+              <p>+91 7987170923</p>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex gap-4 pt-4 border-t border-background/10">
+              <a
+                href="https://www.linkedin.com/in/deepanshu-verma-work"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 text-background/60 hover:text-background transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+                <span className="text-xs font-mono uppercase tracking-widest">LinkedIn</span>
+              </a>
+              <a
+                href="https://github.com/Deepanshu-Verma-Work"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 text-background/60 hover:text-background transition-colors"
+              >
+                <Github className="w-5 h-5" />
+                <span className="text-xs font-mono uppercase tracking-widest">GitHub</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -152,10 +176,32 @@ export default function ContactFooter() {
       </div>
 
       {/* Mobile Footer Info */}
-      <div className="md:hidden mt-24 pt-8 border-t border-background/10 space-y-2 font-mono text-xs text-background/40 uppercase tracking-widest text-center pb-12">
-        <p>Pune, India</p>
-        <p>deepanshu.verma@zohomail.in</p>
-        <p>+91 7987170923</p>
+      <div className="md:hidden mt-24 pt-8 border-t border-background/10 space-y-6 text-center pb-12">
+        <div className="space-y-2 font-mono text-xs text-background/40 uppercase tracking-widest">
+          <p>Pune, India</p>
+          <p>deepanshu.verma@zohomail.in</p>
+          <p>+91 7987170923</p>
+        </div>
+
+        {/* Social Links Mobile */}
+        <div className="flex gap-6 justify-center pt-4">
+          <a
+            href="https://www.linkedin.com/in/deepanshu-verma-work"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-background/60 hover:text-background transition-colors"
+          >
+            <Linkedin className="w-6 h-6" />
+          </a>
+          <a
+            href="https://github.com/Deepanshu-Verma-Work"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-background/60 hover:text-background transition-colors"
+          >
+            <Github className="w-6 h-6" />
+          </a>
+        </div>
       </div>
     </footer>
   );
