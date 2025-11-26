@@ -1,5 +1,6 @@
 import Layout from "@/components/layout";
 import ContactFooter from "@/components/contact-footer";
+import ConstructionScene from "@/components/construction-scene";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
@@ -54,12 +55,15 @@ export default function Home() {
     <Layout>
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
         {/* Hero Section */}
-        <section className="md:min-h-[80vh] flex flex-col justify-center md:justify-end mb-16 md:mb-32 pb-12 pt-20 md:pt-0">
+        <section className="relative md:min-h-[80vh] flex flex-col justify-center md:justify-end mb-16 md:mb-32 pb-12 pt-20 md:pt-0">
+          {/* Animated Construction Scene */}
+          <ConstructionScene />
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-4 md:mt-32 text-[12vw] leading-[0.8] font-display font-bold tracking-tighter uppercase text-foreground opacity-30"
+            className="relative z-10 mt-4 md:mt-32 text-[12vw] leading-[0.8] font-display font-bold tracking-tighter uppercase text-foreground opacity-30"
           >
             System<br />
             Architect
@@ -68,7 +72,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-12 max-w-md ml-auto mr-0 md:mr-24"
+            className="relative z-10 mt-12 max-w-md ml-auto mr-0 md:mr-24"
           >
             <p className="font-heading text-lg md:text-xl leading-relaxed text-muted-foreground opacity-60">
               Designing resilient digital structures. Bridging the gap between abstract logic and concrete implementation.
