@@ -52,7 +52,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
     };
 
     return (
-        <div className="w-full h-[500px] flex items-center justify-center bg-muted/5 border border-border relative overflow-hidden rounded-lg">
+        <div className="w-full h-[500px] flex items-center justify-center bg-muted/5 border border-border relative overflow-visible rounded-lg">
             {/* Background Grid - subtler */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
