@@ -50,36 +50,39 @@ export default function TechDetail() {
                     </motion.a>
                 </Link>
 
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="mb-16"
-                >
-                    <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                        {tech.category}
-                    </span>
-                    <h1 className="text-5xl md:text-7xl font-display font-bold uppercase tracking-tighter mt-4 mb-6">
-                        {tech.name}
-                    </h1>
-                    <p className="text-xl text-muted-foreground font-heading max-w-2xl">
-                        {tech.description}
-                    </p>
-                </motion.div>
+                {/* Hero Section: Split Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-24 items-center">
+                    {/* Header Content */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                    >
+                        <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                            {tech.category}
+                        </span>
+                        <h1 className="text-5xl md:text-7xl font-display font-bold uppercase tracking-tighter mt-4 mb-6">
+                            {tech.name}
+                        </h1>
+                        <p className="text-xl text-muted-foreground font-heading max-w-xl">
+                            {tech.description}
+                        </p>
+                    </motion.div>
 
-                {/* Architecture Visualization */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="mb-24"
-                >
-                    <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
-                        Architecture & Integrations
-                    </h2>
-                    <TechArchitecture tech={tech} />
-                </motion.div>
+                    {/* Architecture Visualization */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="relative"
+                    >
+                        <div className="absolute -inset-4 bg-gradient-to-tr from-muted/10 to-transparent rounded-3xl -z-10" />
+                        <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6 lg:hidden">
+                            Architecture & Integrations
+                        </h2>
+                        <TechArchitecture tech={tech} />
+                    </motion.div>
+                </div>
 
                 {/* Content Sections - Reordered: What, Why, How, Best */}
                 <div className="space-y-24">

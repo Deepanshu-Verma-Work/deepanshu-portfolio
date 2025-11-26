@@ -15,19 +15,24 @@ import TechDetail from "@/pages/tech-detail";
 
 const base = import.meta.env.BASE_URL;
 
+import ScrollToTop from "@/components/scroll-to-top";
+
 function Routes() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/projects/cloud-infrastructure" component={CloudInfrastructure} />
-      <Route path="/projects/neural-network-api" component={NeuralNetworkAPI} />
-      <Route path="/projects/data-lakehouse" component={DataLakehouse} />
-      <Route path="/projects/security-protocol" component={SecurityProtocol} />
-      <Route path="/tech/:slug" component={TechDetail} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/projects/cloud-infrastructure" component={CloudInfrastructure} />
+        <Route path="/projects/neural-network-api" component={NeuralNetworkAPI} />
+        <Route path="/projects/data-lakehouse" component={DataLakehouse} />
+        <Route path="/projects/security-protocol" component={SecurityProtocol} />
+        <Route path="/tech/:slug" component={TechDetail} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 
