@@ -55,7 +55,7 @@ export default function Home() {
     <Layout>
       <div className="max-w-[1800px] mx-auto px-6 md:px-12">
         {/* Hero Section */}
-        <section className="relative min-h-[60vh] md:min-h-[80vh] flex flex-col justify-center md:justify-end mb-16 md:mb-32 pb-12 pt-0 md:pt-0">
+        <section className="relative md:min-h-[80vh] flex flex-col justify-center md:justify-end mb-16 md:mb-32 pb-12 pt-20 md:pt-0">
           <ParticleBackground />
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
