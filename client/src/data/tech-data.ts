@@ -168,6 +168,9 @@ export const techData: Record<string, TechData> = {
         whyNeeded: "SageMaker accelerates the ML development lifecycle by providing pre-built algorithms, managed infrastructure, and integrated tools. It reduces time-to-market for ML models from months to weeks, while ensuring scalability and cost-efficiency.",
         connections: [
             { name: "Amazon S3", slug: "s3", role: "integration", description: "Stores training data & artifacts" },
+            { name: "AWS IAM", slug: "iam", role: "integration", description: "Manages access & permissions" },
+            { name: "Amazon EC2", slug: "ec2", role: "integration", description: "Runs training jobs" },
+            { name: "Amazon VPC", slug: "vpc", role: "integration", description: "Network isolation" },
             { name: "AWS Step Functions", slug: "step-functions", role: "source", description: "Orchestrates ML pipelines" }
         ]
     },
@@ -372,7 +375,9 @@ export const techData: Record<string, TechData> = {
             { name: "Amazon S3", slug: "s3", role: "source", description: "Triggered by upload" },
             { name: "Amazon DynamoDB", slug: "dynamodb", role: "integration", description: "Reads/Writes state" },
             { name: "Amazon Bedrock", slug: "bedrock", role: "destination", description: "Invokes models" },
-            { name: "Amazon EventBridge", slug: "eventbridge", role: "source", description: "Triggered by events" }
+            { name: "Amazon EventBridge", slug: "eventbridge", role: "source", description: "Triggered by events" },
+            { name: "AWS IAM", slug: "iam", role: "integration", description: "Execution permissions" },
+            { name: "Amazon VPC", slug: "vpc", role: "integration", description: "Private network access" }
         ]
     },
     "rekognition": {
