@@ -19,8 +19,8 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
     const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
     const connections = tech.connections || [];
-    const center = { x: 250, y: 250 }; // Center of the SVG (500x500 canvas)
-    const radius = 140;
+    const center = { x: 300, y: 300 }; // Center of the SVG (600x600 canvas)
+    const radius = 160;
 
     // Handle image load error
     const handleImageError = (slug: string) => {
@@ -52,14 +52,14 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
     };
 
     return (
-        <div className="w-full h-[500px] flex items-center justify-center bg-muted/5 border border-border relative overflow-visible rounded-lg">
+        <div className="w-full h-[600px] flex items-center justify-center bg-muted/5 border border-border relative overflow-visible rounded-lg">
             {/* Background Grid - subtler */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
             {/* Radial Gradient Overlay */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)]"></div>
 
-            <svg width="500" height="500" className="z-10 relative">
+            <svg width="600" height="600" className="z-10 relative">
                 {/* Connecting Lines */}
                 {connections.map((conn, index) => {
                     const pos = getPosition(index, connections.length);
@@ -218,12 +218,12 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     const isBottom = pos.y > center.y + 20;
 
                     // Offset from the node center
-                    const offset = 85;
+                    const offset = 90;
                     let labelX = pos.x;
                     let labelY = pos.y;
                     let textAnchor: 'start' | 'middle' | 'end' = 'middle';
-                    let maxWidth = 180;
-                    let estimatedHeight = 65;
+                    let maxWidth = 250;
+                    let estimatedHeight = 80;
 
 
                     if (isRight) {
