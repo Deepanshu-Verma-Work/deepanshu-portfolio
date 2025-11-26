@@ -7,10 +7,10 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
-import CloudInfrastructure from "@/pages/projects/cloud-infrastructure";
-import NeuralNetworkAPI from "@/pages/projects/neural-network-api";
-import DataLakehouse from "@/pages/projects/data-lakehouse";
-import SecurityProtocol from "@/pages/projects/security-protocol";
+import AIConversationalBot from "@/pages/projects/ai-conversational-bot";
+import RealTimeMonitoring from "@/pages/projects/real-time-monitoring";
+import TTSPipeline from "@/pages/projects/tts-pipeline";
+import MultimodalRAG from "@/pages/projects/multimodal-rag";
 import TechDetail from "@/pages/tech-detail";
 
 const base = import.meta.env.BASE_URL;
@@ -25,10 +25,10 @@ function Routes() {
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
-        <Route path="/projects/cloud-infrastructure" component={CloudInfrastructure} />
-        <Route path="/projects/neural-network-api" component={NeuralNetworkAPI} />
-        <Route path="/projects/data-lakehouse" component={DataLakehouse} />
-        <Route path="/projects/security-protocol" component={SecurityProtocol} />
+        <Route path="/projects/ai-conversational-bot" component={AIConversationalBot} />
+        <Route path="/projects/real-time-monitoring" component={RealTimeMonitoring} />
+        <Route path="/projects/tts-pipeline" component={TTSPipeline} />
+        <Route path="/projects/multimodal-rag" component={MultimodalRAG} />
         <Route path="/tech/:slug" component={TechDetail} />
         <Route component={NotFound} />
       </Switch>

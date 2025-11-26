@@ -14,39 +14,39 @@ import imgTech from "@assets/generated_images/geometric_tech_abstract.png";
 const projects = [
   {
     id: 1,
-    title: "Cloud Infrastructure",
-    category: "System Architecture",
+    title: "AI Conversational Bot",
+    category: "AI/ML",
     year: "2024",
-    image: imgConcrete,
-    description: "Scalable microservices on AWS using EC2, ECS, Lambda, S3, RDS, and AI/ML services like SageMaker and Rekognition.",
-    route: "/projects/cloud-infrastructure"
+    image: imgTech,
+    description: "An intelligent, generative AI–enhanced chatbot using Amazon Lex, Amazon Bedrock, and AWS Lambda for natural language understanding and dynamic responses.",
+    route: "/projects/ai-conversational-bot"
   },
   {
     id: 2,
-    title: "Neural Network API",
-    category: "Machine Learning",
-    year: "2023",
-    image: imgTech,
-    description: "High-throughput inference engine architecture with sub-millisecond latency for production ML systems.",
-    route: "/projects/neural-network-api"
+    title: "Real-time Monitoring",
+    category: "Data Engineering",
+    year: "2024",
+    image: imgConcrete,
+    description: "A scalable solution to collect, process, and visualize real-time network flow logs from 1000+ machines, providing actionable insights into machine usage and network activity.",
+    route: "/projects/real-time-monitoring"
   },
   {
     id: 3,
-    title: "Data Lakehouse",
-    category: "Data Engineering",
+    title: "TTS Pipeline",
+    category: "Serverless",
     year: "2024",
     image: imgGlass,
-    description: "Unified storage layer combining the best of data warehouses and data lakes for modern analytics.",
-    route: "/projects/data-lakehouse"
+    description: "A serverless pipeline using AWS Lambda and Amazon Polly to convert dynamic text into high-quality, lifelike speech audio files, stored and served via S3.",
+    route: "/projects/tts-pipeline"
   },
   {
     id: 4,
-    title: "Security Protocol",
-    category: "Cybersecurity",
+    title: "Multimodal RAG",
+    category: "AI/ML",
     year: "2025",
     image: imgGallery,
-    description: "Zero-trust architecture implementation for distributed remote teams with comprehensive security controls.",
-    route: "/projects/security-protocol"
+    description: "Engineered a full-stack, multimodal RAG (Retrieval-Augmented Generation) system capable of processing and reasoning across both text and image data for complex document analysis.",
+    route: "/projects/multimodal-rag"
   }
 ];
 
