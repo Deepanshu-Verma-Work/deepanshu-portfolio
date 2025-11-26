@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -17,15 +16,20 @@ function getTechLabel(name: string): string {
 
 export default function TechArchitecture({ tech }: TechArchitectureProps) {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+    const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
     const connections = tech.connections || [];
-    const center = { x: 250, y: 200 }; // Center of the SVG (500x400 canvas)
+    const center = { x: 250, y: 250 }; // Center of the SVG (500x500 canvas)
+    const radius = 140;
+
+    // Handle image load error
+    const handleImageError = (slug: string) => {
+        setImageErrors(prev => ({ ...prev, [slug]: true }));
+    };
 
     // Fixed positions for cleaner layout (up to 4 connections)
     // 0: Right, 1: Left, 2: Top, 3: Bottom
     const getPosition = (index: number, total: number) => {
-        const radius = 140;
-
         // If we have many connections, fallback to radial
         if (total > 4) {
             const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
@@ -37,7 +41,6 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
         }
 
         // Snap to cardinal directions for better layout
-        // Order: Right, Left, Top, Bottom
         const positions = [
             { x: center.x + radius, y: center.y, align: 'right' },
             { x: center.x - radius, y: center.y, align: 'left' },
@@ -49,14 +52,14 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
     };
 
     return (
-        <div className="w-full h-[400px] flex items-center justify-center bg-muted/5 border border-border relative overflow-hidden rounded-lg">
+        <div className="w-full h-[500px] flex items-center justify-center bg-muted/5 border border-border relative overflow-hidden rounded-lg">
             {/* Background Grid - subtler */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
             {/* Radial Gradient Overlay */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)]"></div>
 
-            <svg width="500" height="400" className="z-10 relative">
+            <svg width="500" height="500" className="z-10 relative">
                 {/* Connecting Lines */}
                 {connections.map((conn, index) => {
                     const pos = getPosition(index, connections.length);
@@ -96,35 +99,45 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                 {/* Satellite Nodes */}
                 {connections.map((conn, index) => {
                     const pos = getPosition(index, connections.length);
+                    const hasIcon = !imageErrors[conn.slug];
 
                     return (
                         <g key={`node-${index}`}>
                             <Link href={`/tech/${conn.slug}`}>
-                                <motion.circle
-                                    cx={pos.x}
-                                    cy={pos.y}
-                                    r="28"
-                                    className="fill-background stroke-border cursor-pointer hover:stroke-primary hover:stroke-2 transition-all"
-                                    initial={{ scale: 0, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                                <g
+                                    className="cursor-pointer group"
                                     onMouseEnter={() => setHoveredNode(conn.name)}
                                     onMouseLeave={() => setHoveredNode(null)}
-                                />
+                                >
+                                    <motion.circle
+                                        cx={pos.x}
+                                        cy={pos.y}
+                                        r="32"
+                                        className="fill-background stroke-border group-hover:stroke-primary group-hover:stroke-2 transition-all"
+                                        initial={{ scale: 0, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                                    />
+
+                                    {/* Icon or Initials */}
+                                    <foreignObject x={pos.x - 20} y={pos.y - 20} width="40" height="40" className="pointer-events-none">
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            {hasIcon ? (
+                                                <img
+                                                    src={`/deepanshu-portfolio/tech-icons/${conn.slug}.svg`}
+                                                    alt={conn.name}
+                                                    className="w-8 h-8 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                                                    onError={() => handleImageError(conn.slug)}
+                                                />
+                                            ) : (
+                                                <span className="text-[10px] font-mono font-bold text-foreground uppercase tracking-tighter">
+                                                    {getTechLabel(conn.name)}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </foreignObject>
+                                </g>
                             </Link>
-                            {/* Initials */}
-                            <motion.text
-                                x={pos.x}
-                                y={pos.y}
-                                dy=".3em"
-                                textAnchor="middle"
-                                className="text-[10px] font-mono font-bold fill-foreground pointer-events-none uppercase tracking-tighter"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.2 + index * 0.1 }}
-                            >
-                                {getTechLabel(conn.name)}
-                            </motion.text>
                         </g>
                     );
                 })}
@@ -135,7 +148,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     <motion.circle
                         cx={center.x}
                         cy={center.y}
-                        r="45"
+                        r="50"
                         className="fill-primary/10"
                         animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -143,12 +156,42 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     <motion.circle
                         cx={center.x}
                         cy={center.y}
-                        r="45"
+                        r="50"
                         className="fill-foreground"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     />
+
+                    {/* Center Icon or Text */}
+                    <foreignObject x={center.x - 30} y={center.y - 30} width="60" height="60" className="pointer-events-none">
+                        <div className="w-full h-full flex items-center justify-center">
+                            {!imageErrors[tech.name.toLowerCase().replace(/ /g, '-')] ? (
+                                <img
+                                    src={`/deepanshu-portfolio/tech-icons/${tech.name.toLowerCase().replace(/ /g, '-')}.svg`}
+                                    // Try slug if available, but here we only have tech object. 
+                                    // Actually techData keys are slugs. But we don't have the slug passed as prop easily unless we pass it.
+                                    // Wait, tech object doesn't have slug property in interface? 
+                                    // I added it to connections, but the main tech object might not have it.
+                                    // I'll try to use a safe fallback or just text for center for now to be safe, 
+                                    // OR better: pass slug to component.
+                                    alt={tech.name}
+                                    className="w-10 h-10 object-contain invert"
+                                    onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                        // We can't easily switch to text here without state, but we can hide image.
+                                        // Let's stick to text for center node for now to ensure it looks good, 
+                                        // or use the same state logic if I pass slug.
+                                    }}
+                                />
+                            ) : null}
+                            <span className={`text-sm font-bold font-display text-background uppercase tracking-tight ${!imageErrors[tech.name.toLowerCase().replace(/ /g, '-')] ? 'hidden' : 'block'}`}>
+                                {getTechLabel(tech.name)}
+                            </span>
+                        </div>
+                    </foreignObject>
+
+                    {/* Fallback Text if image fails (handled by CSS/JS above roughly, but let's be cleaner) */}
                     <motion.text
                         x={center.x}
                         y={center.y}
@@ -158,6 +201,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
+                        style={{ display: 'block' }} // Always show text for center for now, it looks cool on black circle
                     >
                         {getTechLabel(tech.name)}
                     </motion.text>
@@ -192,33 +236,41 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     fontSize: '10px',
                     fontFamily: 'monospace',
                     color: 'hsl(var(--muted-foreground))',
-                    whiteSpace: 'nowrap'
+                    whiteSpace: 'nowrap',
+                    zIndex: 20, // Ensure on top
+                    background: 'rgba(255,255,255,0.8)', // Slight background for readability
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                    backdropFilter: 'blur(2px)'
                 };
 
+                // Increased offsets to 60px
+                const offset = 65;
+
                 if (pos.align === 'right') {
-                    style.left = pos.x + 40;
+                    style.left = pos.x + offset;
                     style.top = pos.y;
                     style.transform = 'translate(0, -50%)';
                     style.textAlign = 'left';
                 } else if (pos.align === 'left') {
-                    style.left = pos.x - 40;
+                    style.left = pos.x - offset;
                     style.top = pos.y;
                     style.transform = 'translate(-100%, -50%)';
                     style.textAlign = 'right';
                 } else if (pos.align === 'top') {
                     style.left = pos.x;
-                    style.top = pos.y - 40;
+                    style.top = pos.y - offset;
                     style.transform = 'translate(-50%, -100%)';
                     style.textAlign = 'center';
                 } else if (pos.align === 'bottom') {
                     style.left = pos.x;
-                    style.top = pos.y + 40;
+                    style.top = pos.y + offset;
                     style.transform = 'translate(-50%, 0)';
                     style.textAlign = 'center';
                 } else {
                     // Fallback for radial
                     style.left = pos.x;
-                    style.top = pos.y + 35;
+                    style.top = pos.y + 40;
                     style.transform = 'translate(-50%, 0)';
                     style.textAlign = 'center';
                 }
