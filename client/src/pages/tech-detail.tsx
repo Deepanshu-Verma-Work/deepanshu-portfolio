@@ -4,39 +4,8 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "wouter";
 
-// Tech data - you can move this to a separate file later
-const techData: Record<string, {
-    name: string;
-    category: string;
-    description: string;
-    whatItIs: string;
-    howWeUsedIt: string[];
-    bestPractices: string[];
-    whyNeeded: string;
-}> = {
-    "sagemaker": {
-        name: "Amazon SageMaker",
-        category: "Machine Learning",
-        description: "Build, train, and deploy ML models at scale",
-        whatItIs: "Amazon SageMaker is a fully managed machine learning service that enables data scientists and developers to build, train, and deploy machine learning models quickly. It removes the heavy lifting from each step of the machine learning process to make it easier to develop high-quality models.",
-        howWeUsedIt: [
-            "Training custom NLP models for document classification",
-            "Deploying real-time inference endpoints for production workloads",
-            "Using SageMaker Pipelines for ML workflow orchestration",
-            "Implementing A/B testing for model variants",
-            "Leveraging SageMaker Feature Store for feature engineering"
-        ],
-        bestPractices: [
-            "Use SageMaker Experiments to track model training runs",
-            "Implement model monitoring with SageMaker Model Monitor",
-            "Leverage spot instances for cost-effective training",
-            "Use SageMaker Debugger to identify training issues early",
-            "Implement proper IAM roles with least privilege access"
-        ],
-        whyNeeded: "SageMaker accelerates the ML development lifecycle by providing pre-built algorithms, managed infrastructure, and integrated tools. It reduces time-to-market for ML models from months to weeks, while ensuring scalability and cost-efficiency. For GenAI applications, it provides the foundation for training and deploying custom models alongside foundation models from Bedrock."
-    },
-    // Add more tech details here...
-};
+// Complete tech data with GenAI focus
+import { techData } from "@/data/tech-data";
 
 export default function TechDetail() {
     const params = useParams();
@@ -91,9 +60,9 @@ export default function TechDetail() {
                     </p>
                 </motion.div>
 
-                {/* Content Sections */}
+                {/* Content Sections - Reordered: What, Why, How, Best */}
                 <div className="space-y-24">
-                    {/* What It Is */}
+                    {/* 01 - What It Is */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -108,7 +77,7 @@ export default function TechDetail() {
                         </p>
                     </motion.section>
 
-                    {/* How We Used It */}
+                    {/* 02 - Why It's Needed */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -116,7 +85,22 @@ export default function TechDetail() {
                         className="border-t border-border pt-12"
                     >
                         <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
-                            02 — How We Used It
+                            02 — Why It's Needed
+                        </h2>
+                        <p className="text-lg font-heading leading-relaxed text-foreground/80 max-w-3xl">
+                            {tech.whyNeeded}
+                        </p>
+                    </motion.section>
+
+                    {/* 03 - How We Used It */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="border-t border-border pt-12"
+                    >
+                        <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
+                            03 — How We Used It
                         </h2>
                         <ul className="space-y-4">
                             {tech.howWeUsedIt.map((item, index) => (
@@ -132,15 +116,15 @@ export default function TechDetail() {
                         </ul>
                     </motion.section>
 
-                    {/* Best Practices */}
+                    {/* 04 - Best Practices */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="border-t border-border pt-12"
+                        transition={{ delay: 0.5 }}
+                        className="border-t border-border pt-12 pb-24"
                     >
                         <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
-                            03 — Best Practices
+                            04 — Best Practices
                         </h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             {tech.bestPractices.map((practice, index) => (
@@ -154,21 +138,6 @@ export default function TechDetail() {
                                 </div>
                             ))}
                         </div>
-                    </motion.section>
-
-                    {/* Why It's Needed */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="border-t border-border pt-12 pb-24"
-                    >
-                        <h2 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-6">
-                            04 — Why It's Needed
-                        </h2>
-                        <p className="text-lg font-heading leading-relaxed text-foreground/80 max-w-3xl">
-                            {tech.whyNeeded}
-                        </p>
                     </motion.section>
                 </div>
             </div>
