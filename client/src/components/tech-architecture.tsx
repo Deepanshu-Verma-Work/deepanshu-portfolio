@@ -229,7 +229,12 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
             {connections.map((conn, index) => {
                 const pos = getPosition(index, connections.length);
 
-                // Determine style based on alignment
+                // Determine alignment based on coordinates (more robust than checking align property)
+                const isRight = pos.x > center.x + 20;
+                const isLeft = pos.x < center.x - 20;
+                const isTop = pos.y < center.y - 20;
+                const isBottom = pos.y > center.y + 20;
+
                 let style: React.CSSProperties = {
                     position: 'absolute',
                     pointerEvents: 'none',
@@ -237,40 +242,42 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     fontFamily: 'monospace',
                     color: 'hsl(var(--muted-foreground))',
                     whiteSpace: 'nowrap',
-                    zIndex: 20, // Ensure on top
-                    background: 'rgba(255,255,255,0.8)', // Slight background for readability
-                    padding: '2px 6px',
+                    zIndex: 20,
+                    background: 'rgba(255,255,255,0.9)',
+                    padding: '4px 8px',
                     borderRadius: '4px',
-                    backdropFilter: 'blur(2px)'
+                    backdropFilter: 'blur(4px)',
+                    border: '1px solid rgba(0,0,0,0.05)',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
                 };
 
-                // Increased offsets to 60px
-                const offset = 65;
+                // Offset from the node center
+                const offset = 70;
 
-                if (pos.align === 'right') {
+                if (isRight) {
                     style.left = pos.x + offset;
                     style.top = pos.y;
                     style.transform = 'translate(0, -50%)';
                     style.textAlign = 'left';
-                } else if (pos.align === 'left') {
+                } else if (isLeft) {
                     style.left = pos.x - offset;
                     style.top = pos.y;
                     style.transform = 'translate(-100%, -50%)';
                     style.textAlign = 'right';
-                } else if (pos.align === 'top') {
+                } else if (isTop) {
                     style.left = pos.x;
                     style.top = pos.y - offset;
                     style.transform = 'translate(-50%, -100%)';
                     style.textAlign = 'center';
-                } else if (pos.align === 'bottom') {
+                } else if (isBottom) {
                     style.left = pos.x;
                     style.top = pos.y + offset;
                     style.transform = 'translate(-50%, 0)';
                     style.textAlign = 'center';
                 } else {
-                    // Fallback for radial
+                    // Fallback for radial or center
                     style.left = pos.x;
-                    style.top = pos.y + 40;
+                    style.top = pos.y + 45;
                     style.transform = 'translate(-50%, 0)';
                     style.textAlign = 'center';
                 }
@@ -279,14 +286,14 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     <motion.div
                         key={`label-${index}`}
                         style={style}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 1.5 + index * 0.1 }}
                     >
-                        <span className="block opacity-70 mb-0.5 text-[9px] uppercase tracking-wider">
+                        <span className="block opacity-70 mb-0.5 text-[9px] uppercase tracking-wider font-semibold">
                             {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
                         </span>
-                        <span className="font-semibold text-foreground/80">{conn.description}</span>
+                        <span className="font-bold text-foreground">{conn.description}</span>
                     </motion.div>
                 );
             })}
