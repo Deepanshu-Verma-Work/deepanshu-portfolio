@@ -1,6 +1,6 @@
 import Layout from "@/components/layout";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Linkedin, Github } from "lucide-react";
+import { Mail, MapPin, Phone, Linkedin, Github, MessageCircle } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -71,6 +71,7 @@ export default function Contact() {
             <div className="flex gap-3 mb-4">
               <Linkedin className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
               <Github className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
+              <MessageCircle className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
             </div>
             <h3 className="font-mono text-xs uppercase tracking-widest mb-3 text-muted-foreground">Connect</h3>
             <div className="flex flex-col gap-2">
@@ -89,6 +90,14 @@ export default function Contact() {
                 className="text-sm font-mono hover:text-primary transition-colors"
               >
                 GitHub →
+              </a>
+              <a
+                href="https://wa.me/917987170923?text=Hi%20Deepanshu%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-mono hover:text-primary transition-colors"
+              >
+                WhatsApp →
               </a>
             </div>
           </motion.div>
