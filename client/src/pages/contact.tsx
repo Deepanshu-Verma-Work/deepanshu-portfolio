@@ -24,7 +24,7 @@ export default function Contact() {
           Let's discuss how we can build resilient, scalable systems together. Whether you're looking for architectural guidance or collaboration on complex projects, I'm here to help.
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ export default function Contact() {
           >
             <Mail className="w-6 h-6 mb-4 opacity-50 group-hover:opacity-100 transition-opacity" />
             <h3 className="font-mono text-xs uppercase tracking-widest mb-2 text-muted-foreground">Email</h3>
-            <a href="mailto:deepanshu.verma@zohomail.in" className="text-xl font-display font-bold hover:text-primary transition-colors">
+            <a href="mailto:deepanshu.verma@zohomail.in" className="text-xl font-display font-bold hover:text-primary transition-colors break-all">
               deepanshu.verma@zohomail.in
             </a>
           </motion.div>
