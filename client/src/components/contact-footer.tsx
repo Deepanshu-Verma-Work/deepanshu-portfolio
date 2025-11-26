@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight, Linkedin, Github } from "lucide-react";
+import { ArrowRight, Linkedin, Github, MessageCircle } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -118,6 +118,15 @@ export default function ContactFooter() {
                 <Github className="w-5 h-5" />
                 <span className="text-xs font-mono uppercase tracking-widest">GitHub</span>
               </a>
+              <a
+                href="https://wa.me/917987170923?text=Hi%20Deepanshu%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 text-background/60 hover:text-background transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span className="text-xs font-mono uppercase tracking-widest">WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>
@@ -200,6 +209,14 @@ export default function ContactFooter() {
             className="text-background/60 hover:text-background transition-colors"
           >
             <Github className="w-6 h-6" />
+          </a>
+          <a
+            href="https://wa.me/917987170923?text=Hi%20Deepanshu%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-background/60 hover:text-background transition-colors"
+          >
+            <MessageCircle className="w-6 h-6" />
           </a>
         </div>
       </div>
