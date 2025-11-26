@@ -219,13 +219,13 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                 const isBottom = pos.y > center.y + 20;
 
                 // Calculate position - SVG is centered in the container
-                const offset = 95;
+                const offset = 75;
                 let labelStyle: React.CSSProperties = {
                     position: 'absolute',
                     pointerEvents: 'none',
                     zIndex: 30,
-                    maxWidth: '200px',
-                    minWidth: '120px'
+                    maxWidth: '180px',
+                    minWidth: '100px'
                 };
 
                 if (isRight) {
@@ -238,8 +238,8 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     labelStyle.transform = 'translateY(-50%)';
                 } else if (isTop) {
                     labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
-                    labelStyle.bottom = `calc(50% + ${center.y - pos.y + offset}px)`;
-                    labelStyle.transform = 'translateX(-50%)';
+                    labelStyle.top = `calc(50% + ${pos.y - center.y - offset}px)`;
+                    labelStyle.transform = 'translate(-50%, -100%)';
                 } else if (isBottom) {
                     labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
                     labelStyle.top = `calc(50% + ${pos.y - center.y + offset}px)`;
