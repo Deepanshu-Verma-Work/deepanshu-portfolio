@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -8,18 +9,44 @@ interface TechArchitectureProps {
 }
 
 // Helper to get short code from name
-function getTechInitials(name: string): string {
-    if (name.startsWith("Amazon ")) return name.replace("Amazon ", "");
-    if (name.startsWith("AWS ")) return name.replace("AWS ", "");
-    return name.substring(0, 3);
+function getTechLabel(name: string): string {
+    const clean = name.replace("Amazon ", "").replace("AWS ", "");
+    if (clean.length <= 6) return clean;
+    return clean.substring(0, 4).toUpperCase();
 }
 
 export default function TechArchitecture({ tech }: TechArchitectureProps) {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
     const connections = tech.connections || [];
-    const radius = 140; // Increased radius for more space
     const center = { x: 250, y: 200 }; // Center of the SVG (500x400 canvas)
+
+    // Fixed positions for cleaner layout (up to 4 connections)
+    // 0: Right, 1: Left, 2: Top, 3: Bottom
+    const getPosition = (index: number, total: number) => {
+        const radius = 140;
+
+        // If we have many connections, fallback to radial
+        if (total > 4) {
+            const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
+            return {
+                x: center.x + radius * Math.cos(angle),
+                y: center.y + radius * Math.sin(angle),
+                align: 'radial'
+            };
+        }
+
+        // Snap to cardinal directions for better layout
+        // Order: Right, Left, Top, Bottom
+        const positions = [
+            { x: center.x + radius, y: center.y, align: 'right' },
+            { x: center.x - radius, y: center.y, align: 'left' },
+            { x: center.x, y: center.y - radius, align: 'top' },
+            { x: center.x, y: center.y + radius, align: 'bottom' }
+        ];
+
+        return positions[index % 4];
+    };
 
     return (
         <div className="w-full h-[400px] flex items-center justify-center bg-muted/5 border border-border relative overflow-hidden rounded-lg">
@@ -32,9 +59,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
             <svg width="500" height="400" className="z-10 relative">
                 {/* Connecting Lines */}
                 {connections.map((conn, index) => {
-                    const angle = (index / connections.length) * 2 * Math.PI - Math.PI / 2;
-                    const x = center.x + radius * Math.cos(angle);
-                    const y = center.y + radius * Math.sin(angle);
+                    const pos = getPosition(index, connections.length);
 
                     return (
                         <motion.g key={`line-group-${index}`}>
@@ -42,8 +67,8 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                             <motion.line
                                 x1={center.x}
                                 y1={center.y}
-                                x2={x}
-                                y2={y}
+                                x2={pos.x}
+                                y2={pos.y}
                                 stroke="currentColor"
                                 strokeWidth="1"
                                 className="text-border"
@@ -61,7 +86,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                 <animateMotion
                                     dur="3s"
                                     repeatCount="indefinite"
-                                    path={`M${conn.role === 'source' ? x : center.x},${conn.role === 'source' ? y : center.y} L${conn.role === 'source' ? center.x : x},${conn.role === 'source' ? center.y : y}`}
+                                    path={`M${conn.role === 'source' ? pos.x : center.x},${conn.role === 'source' ? pos.y : center.y} L${conn.role === 'source' ? center.x : pos.x},${conn.role === 'source' ? center.y : pos.y}`}
                                 />
                             </motion.circle>
                         </motion.g>
@@ -70,16 +95,14 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
 
                 {/* Satellite Nodes */}
                 {connections.map((conn, index) => {
-                    const angle = (index / connections.length) * 2 * Math.PI - Math.PI / 2;
-                    const x = center.x + radius * Math.cos(angle);
-                    const y = center.y + radius * Math.sin(angle);
+                    const pos = getPosition(index, connections.length);
 
                     return (
                         <g key={`node-${index}`}>
                             <Link href={`/tech/${conn.slug}`}>
                                 <motion.circle
-                                    cx={x}
-                                    cy={y}
+                                    cx={pos.x}
+                                    cy={pos.y}
                                     r="28"
                                     className="fill-background stroke-border cursor-pointer hover:stroke-primary hover:stroke-2 transition-all"
                                     initial={{ scale: 0, opacity: 0 }}
@@ -91,8 +114,8 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                             </Link>
                             {/* Initials */}
                             <motion.text
-                                x={x}
-                                y={y}
+                                x={pos.x}
+                                y={pos.y}
                                 dy=".3em"
                                 textAnchor="middle"
                                 className="text-[10px] font-mono font-bold fill-foreground pointer-events-none uppercase tracking-tighter"
@@ -100,7 +123,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.2 + index * 0.1 }}
                             >
-                                {getTechInitials(conn.name).substring(0, 4)}
+                                {getTechLabel(conn.name)}
                             </motion.text>
                         </g>
                     );
@@ -136,7 +159,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
                     >
-                        {getTechInitials(tech.name).substring(0, 5)}
+                        {getTechLabel(tech.name)}
                     </motion.text>
                 </g>
             </svg>
@@ -158,46 +181,59 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                 )}
             </div>
 
-            {/* Labels for connections - Improved Positioning */}
+            {/* Labels for connections - Improved Positioning with Snapping */}
             {connections.map((conn, index) => {
-                const angle = (index / connections.length) * 2 * Math.PI - Math.PI / 2;
-                // Push text further out
-                const labelRadius = radius + 45;
-                const x = center.x + labelRadius * Math.cos(angle);
-                const y = center.y + labelRadius * Math.sin(angle);
+                const pos = getPosition(index, connections.length);
 
-                // Dynamic alignment based on position relative to center
-                const isLeft = x < center.x - 20;
-                const isRight = x > center.x + 20;
-                const isTop = y < center.y - 50;
-                const isBottom = y > center.y + 50;
+                // Determine style based on alignment
+                let style: React.CSSProperties = {
+                    position: 'absolute',
+                    pointerEvents: 'none',
+                    fontSize: '10px',
+                    fontFamily: 'monospace',
+                    color: 'hsl(var(--muted-foreground))',
+                    whiteSpace: 'nowrap'
+                };
 
-                let textAlign = "center";
-                let transform = "translate(-50%, -50%)";
-
-                if (isLeft) {
-                    textAlign = "right";
-                    transform = "translate(-100%, -50%)"; // Anchor right
-                } else if (isRight) {
-                    textAlign = "left";
-                    transform = "translate(0, -50%)"; // Anchor left
+                if (pos.align === 'right') {
+                    style.left = pos.x + 40;
+                    style.top = pos.y;
+                    style.transform = 'translate(0, -50%)';
+                    style.textAlign = 'left';
+                } else if (pos.align === 'left') {
+                    style.left = pos.x - 40;
+                    style.top = pos.y;
+                    style.transform = 'translate(-100%, -50%)';
+                    style.textAlign = 'right';
+                } else if (pos.align === 'top') {
+                    style.left = pos.x;
+                    style.top = pos.y - 40;
+                    style.transform = 'translate(-50%, -100%)';
+                    style.textAlign = 'center';
+                } else if (pos.align === 'bottom') {
+                    style.left = pos.x;
+                    style.top = pos.y + 40;
+                    style.transform = 'translate(-50%, 0)';
+                    style.textAlign = 'center';
+                } else {
+                    // Fallback for radial
+                    style.left = pos.x;
+                    style.top = pos.y + 35;
+                    style.transform = 'translate(-50%, 0)';
+                    style.textAlign = 'center';
                 }
 
                 return (
                     <motion.div
                         key={`label-${index}`}
-                        className="absolute text-[10px] font-mono text-muted-foreground pointer-events-none whitespace-nowrap"
-                        style={{
-                            left: x,
-                            top: y,
-                            transform,
-                            textAlign: textAlign as any
-                        }}
+                        style={style}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.5 + index * 0.1 }}
                     >
-                        <span className="block opacity-70 mb-0.5">{conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}</span>
+                        <span className="block opacity-70 mb-0.5 text-[9px] uppercase tracking-wider">
+                            {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
+                        </span>
                         <span className="font-semibold text-foreground/80">{conn.description}</span>
                     </motion.div>
                 );
