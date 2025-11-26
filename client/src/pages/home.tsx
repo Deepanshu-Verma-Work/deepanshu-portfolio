@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
 
-// Import generated assets
-import imgConcrete from "@assets/generated_images/abstract_concrete_architecture_b&w.png";
-import imgGlass from "@assets/generated_images/glass_and_steel_structure_abstract.png";
-import imgGallery from "@assets/generated_images/minimalist_interior_gallery_space.png";
-import imgTech from "@assets/generated_images/geometric_tech_abstract.png";
+// Import Architecture Components
+import AIArchitecture from "@/components/architectures/AIArchitecture";
+import MonitoringArchitecture from "@/components/architectures/MonitoringArchitecture";
+import TTSArchitecture from "@/components/architectures/TTSArchitecture";
+import RAGArchitecture from "@/components/architectures/RAGArchitecture";
 
 const projects = [
   {
@@ -17,7 +17,7 @@ const projects = [
     title: "AI Conversational Bot",
     category: "AI/ML",
     year: "2024",
-    image: imgTech,
+    Component: AIArchitecture,
     description: "An intelligent, generative AI–enhanced chatbot using Amazon Lex, Amazon Bedrock, and AWS Lambda for natural language understanding and dynamic responses.",
     route: "/projects/ai-conversational-bot"
   },
@@ -26,7 +26,7 @@ const projects = [
     title: "Real-time Monitoring",
     category: "Data Engineering",
     year: "2024",
-    image: imgConcrete,
+    Component: MonitoringArchitecture,
     description: "A scalable solution to collect, process, and visualize real-time network flow logs from 1000+ machines, providing actionable insights into machine usage and network activity.",
     route: "/projects/real-time-monitoring"
   },
@@ -35,7 +35,7 @@ const projects = [
     title: "TTS Pipeline",
     category: "Serverless",
     year: "2024",
-    image: imgGlass,
+    Component: TTSArchitecture,
     description: "A serverless pipeline using AWS Lambda and Amazon Polly to convert dynamic text into high-quality, lifelike speech audio files, stored and served via S3.",
     route: "/projects/tts-pipeline"
   },
@@ -44,7 +44,7 @@ const projects = [
     title: "Multimodal RAG",
     category: "AI/ML",
     year: "2025",
-    image: imgGallery,
+    Component: RAGArchitecture,
     description: "Engineered a full-stack, multimodal RAG (Retrieval-Augmented Generation) system capable of processing and reasoning across both text and image data for complex document analysis.",
     route: "/projects/multimodal-rag"
   }
@@ -174,13 +174,11 @@ export default function Home() {
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                <div className="relative overflow-hidden bg-secondary aspect-[4/5] mb-6">
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10" />
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="object-cover w-full h-full grayscale contrast-[1.1] group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
+                <div className="relative overflow-hidden bg-zinc-950 border border-white/10 aspect-[4/5] mb-6 group-hover:border-primary/50 transition-colors duration-500">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10 pointer-events-none" />
+                  <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <project.Component />
+                  </div>
                 </div>
 
                 <div className="flex justify-between items-start border-t border-border pt-4">
