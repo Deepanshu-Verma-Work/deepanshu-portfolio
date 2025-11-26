@@ -160,13 +160,12 @@ export default function Home() {
         </section>
 
         {/* Gallery Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-y-24 gap-x-8 mb-20 md:mb-32">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 md:mb-32">
           {projects.map((project, index) => (
             <Link
               key={project.id}
               href={project.route}
-              className={`group relative cursor-pointer ${index % 2 === 0 ? "md:col-span-7" : "md:col-span-5 md:col-start-8 md:mt-32"
-                }`}
+              className="group relative cursor-pointer"
             >
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
@@ -174,7 +173,7 @@ export default function Home() {
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                <div className="relative overflow-hidden bg-zinc-950 border border-white/10 aspect-[4/5] mb-6 group-hover:border-primary/50 transition-colors duration-500">
+                <div className="relative overflow-hidden bg-zinc-950 border border-white/10 aspect-video mb-6 group-hover:border-primary/50 transition-colors duration-500">
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10 pointer-events-none" />
                   <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out">
                     <project.Component />
