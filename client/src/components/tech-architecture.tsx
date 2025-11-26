@@ -206,6 +206,98 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                         {getTechLabel(tech.name)}
                     </motion.text>
                 </g>
+
+                {/* Labels for connections - Using foreignObject inside SVG */}
+                {connections.map((conn, index) => {
+                    const pos = getPosition(index, connections.length);
+
+                    // Determine alignment based on coordinates
+                    const isRight = pos.x > center.x + 20;
+                    const isLeft = pos.x < center.x - 20;
+                    const isTop = pos.y < center.y - 20;
+                    const isBottom = pos.y > center.y + 20;
+
+                    // Offset from the node center
+                    const offset = 75;
+                    let labelX = pos.x;
+                    let labelY = pos.y;
+                    let textAnchor: 'start' | 'middle' | 'end' = 'middle';
+                    let width = 120;
+                    let height = 40;
+
+                    if (isRight) {
+                        labelX = pos.x + offset;
+                        labelY = pos.y - height / 2;
+                        textAnchor = 'start';
+                    } else if (isLeft) {
+                        labelX = pos.x - offset - width;
+                        labelY = pos.y - height / 2;
+                        textAnchor = 'end';
+                    } else if (isTop) {
+                        labelX = pos.x - width / 2;
+                        labelY = pos.y - offset - height;
+                        textAnchor = 'middle';
+                    } else if (isBottom) {
+                        labelX = pos.x - width / 2;
+                        labelY = pos.y + offset;
+                        textAnchor = 'middle';
+                    } else {
+                        // Fallback for radial
+                        labelX = pos.x - width / 2;
+                        labelY = pos.y + 45;
+                        textAnchor = 'middle';
+                    }
+
+                    return (
+                        <motion.foreignObject
+                            key={`label-${index}`}
+                            x={labelX}
+                            y={labelY}
+                            width={width}
+                            height={height}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 1.5 + index * 0.1 }}
+                        >
+                            <div
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: textAnchor === 'start' ? 'flex-start' : textAnchor === 'end' ? 'flex-end' : 'center',
+                                    justifyContent: 'center',
+                                    pointerEvents: 'none',
+                                    fontSize: '10px',
+                                    fontFamily: 'monospace',
+                                    color: 'hsl(var(--muted-foreground))',
+                                    background: 'rgba(255,255,255,0.95)',
+                                    padding: '6px 10px',
+                                    borderRadius: '6px',
+                                    backdropFilter: 'blur(8px)',
+                                    border: '1px solid rgba(0,0,0,0.08)',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                    textAlign: textAnchor === 'start' ? 'left' : textAnchor === 'end' ? 'right' : 'center'
+                                }}
+                            >
+                                <span style={{
+                                    display: 'block',
+                                    opacity: 0.7,
+                                    marginBottom: '2px',
+                                    fontSize: '9px',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em',
+                                    fontWeight: 600
+                                }}>
+                                    {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
+                                </span>
+                                <span style={{ fontWeight: 700, color: 'hsl(var(--foreground))' }}>
+                                    {conn.description}
+                                </span>
+                            </div>
+                        </motion.foreignObject>
+                    );
+                })}
             </svg>
 
             {/* Hover Info Overlay */}
@@ -224,79 +316,6 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     </span>
                 )}
             </div>
-
-            {/* Labels for connections - Improved Positioning with Snapping */}
-            {connections.map((conn, index) => {
-                const pos = getPosition(index, connections.length);
-
-                // Determine alignment based on coordinates (more robust than checking align property)
-                const isRight = pos.x > center.x + 20;
-                const isLeft = pos.x < center.x - 20;
-                const isTop = pos.y < center.y - 20;
-                const isBottom = pos.y > center.y + 20;
-
-                let style: React.CSSProperties = {
-                    position: 'absolute',
-                    pointerEvents: 'none',
-                    fontSize: '10px',
-                    fontFamily: 'monospace',
-                    color: 'hsl(var(--muted-foreground))',
-                    whiteSpace: 'nowrap',
-                    zIndex: 20,
-                    background: 'rgba(255,255,255,0.9)',
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    backdropFilter: 'blur(4px)',
-                    border: '1px solid rgba(0,0,0,0.05)',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                };
-
-                // Offset from the node center
-                const offset = 70;
-
-                if (isRight) {
-                    style.left = pos.x + offset;
-                    style.top = pos.y;
-                    style.transform = 'translate(0, -50%)';
-                    style.textAlign = 'left';
-                } else if (isLeft) {
-                    style.left = pos.x - offset;
-                    style.top = pos.y;
-                    style.transform = 'translate(-100%, -50%)';
-                    style.textAlign = 'right';
-                } else if (isTop) {
-                    style.left = pos.x;
-                    style.top = pos.y - offset;
-                    style.transform = 'translate(-50%, -100%)';
-                    style.textAlign = 'center';
-                } else if (isBottom) {
-                    style.left = pos.x;
-                    style.top = pos.y + offset;
-                    style.transform = 'translate(-50%, 0)';
-                    style.textAlign = 'center';
-                } else {
-                    // Fallback for radial or center
-                    style.left = pos.x;
-                    style.top = pos.y + 45;
-                    style.transform = 'translate(-50%, 0)';
-                    style.textAlign = 'center';
-                }
-
-                return (
-                    <motion.div
-                        key={`label-${index}`}
-                        style={style}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1.5 + index * 0.1 }}
-                    >
-                        <span className="block opacity-70 mb-0.5 text-[9px] uppercase tracking-wider font-semibold">
-                            {conn.role === 'source' ? '← Inputs' : conn.role === 'destination' ? 'Outputs →' : 'Integrates'}
-                        </span>
-                        <span className="font-bold text-foreground">{conn.description}</span>
-                    </motion.div>
-                );
-            })}
         </div>
     );
 }
