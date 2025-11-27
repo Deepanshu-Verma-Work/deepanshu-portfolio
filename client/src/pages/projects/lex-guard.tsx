@@ -84,24 +84,25 @@ export default function LexGuard() {
                                     The Solution
                                 </h2>
                                 <p className="text-muted-foreground leading-relaxed mb-6">
-                                    LexGuard uses a <strong>Serverless Pay-Per-Use</strong> architecture. It only costs money when a document is actually analyzed. By using <strong>Claude 3 Haiku</strong> on Amazon Bedrock, we achieve high-quality analysis at a fraction of the cost of GPT-4 or human review.
+                                    LexGuard uses a <strong>Serverless Event-Driven Architecture</strong> designed for scale. While the MVP uses a direct Function URL for simplicity, the production design leverages <strong>API Gateway</strong> for rate limiting and authentication.
+                                    The core analysis engine runs on <strong>AWS Lambda</strong>, orchestrating calls to <strong>Amazon Bedrock (Titan)</strong> for reasoning and <strong>Textract</strong> for optical character recognition (OCR) of scanned documents.
                                 </p>
                                 <ul className="space-y-4 text-muted-foreground">
                                     <li className="flex gap-4">
                                         <span className="font-mono text-primary font-bold">01</span>
-                                        <span>User uploads PDF to S3 (via Signed URL).</span>
+                                        <span><strong>Ingestion:</strong> Secure upload to S3 via Presigned URLs (or API Gateway for smaller payloads).</span>
                                     </li>
                                     <li className="flex gap-4">
                                         <span className="font-mono text-primary font-bold">02</span>
-                                        <span>S3 Event triggers Lambda Orchestrator.</span>
+                                        <span><strong>Extraction:</strong> AWS Textract automatically extracts text from PDFs/Images (Production Pipeline).</span>
                                     </li>
                                     <li className="flex gap-4">
                                         <span className="font-mono text-primary font-bold">03</span>
-                                        <span>Lambda calls Textract (OCR) if needed, then prompts Bedrock.</span>
+                                        <span><strong>Analysis:</strong> Lambda sends sanitized text to Amazon Bedrock (Titan/Claude) with strict JSON schema enforcement.</span>
                                     </li>
                                     <li className="flex gap-4">
                                         <span className="font-mono text-primary font-bold">04</span>
-                                        <span>Bedrock returns JSON risk report, saved to DynamoDB.</span>
+                                        <span><strong>Storage:</strong> Results are indexed in DynamoDB for low-latency retrieval and audit trails.</span>
                                     </li>
                                 </ul>
                             </section>

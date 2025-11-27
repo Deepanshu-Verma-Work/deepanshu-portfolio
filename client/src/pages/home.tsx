@@ -10,6 +10,7 @@ import AIArchitecture from "@/components/architectures/AIArchitecture";
 import MonitoringArchitecture from "@/components/architectures/MonitoringArchitecture";
 import TTSArchitecture from "@/components/architectures/TTSArchitecture";
 import RAGArchitecture from "@/components/architectures/RAGArchitecture";
+import LexGuardArchitecture from "@/components/architectures/LexGuardArchitecture";
 
 const projects = [
   {
@@ -47,6 +48,15 @@ const projects = [
     Component: RAGArchitecture,
     description: "Engineered a full-stack, multimodal RAG (Retrieval-Augmented Generation) system capable of processing and reasoning across both text and image data for complex document analysis.",
     route: "/projects/multimodal-rag"
+  },
+  {
+    id: 5,
+    title: "LexGuard",
+    category: "Serverless AI",
+    year: "2025",
+    Component: LexGuardArchitecture,
+    description: "A production-grade, serverless contract analysis platform using AWS Lambda, Amazon Bedrock (Titan), and Textract for automated legal risk assessment.",
+    route: "/projects/lex-guard"
   }
 ];
 
