@@ -100,7 +100,7 @@ export default function TechDetail() {
                             01 — What It Is
                         </h2>
                         <p className="text-lg font-heading leading-relaxed text-foreground/80">
-                            {tech.whatItIs}
+                            {whatItIs}
                         </p>
                     </motion.section>
 
@@ -115,7 +115,7 @@ export default function TechDetail() {
                             02 — Why It's Needed
                         </h2>
                         <p className="text-lg font-heading leading-relaxed text-foreground/80 max-w-3xl">
-                            {tech.whyNeeded}
+                            {whyNeeded}
                         </p>
                     </motion.section>
 
@@ -130,7 +130,7 @@ export default function TechDetail() {
                             03 — How We Used It
                         </h2>
                         <ul className="space-y-4">
-                            {tech.howWeUsedIt.map((item, index) => (
+                            {howWeUsedIt.map((item, index) => (
                                 <li key={index} className="flex gap-4">
                                     <span className="text-xs font-mono text-muted-foreground mt-1">
                                         {String(index + 1).padStart(2, '0')}
@@ -154,7 +154,7 @@ export default function TechDetail() {
                             04 — Best Practices
                         </h2>
                         <div className="grid md:grid-cols-2 gap-6">
-                            {tech.bestPractices.map((practice, index) => (
+                            {bestPractices.map((practice, index) => (
                                 <div key={index} className="border border-border p-6">
                                     <span className="text-xs font-mono text-muted-foreground">
                                         {String(index + 1).padStart(2, '0')}

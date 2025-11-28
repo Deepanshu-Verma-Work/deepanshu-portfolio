@@ -18,7 +18,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
     const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
-    const connections = tech.connections || [];
+    const connections = tech?.connections || [];
     const center = { x: 300, y: 300 }; // Center of the SVG (600x600 canvas)
     const radius = 160;
 
