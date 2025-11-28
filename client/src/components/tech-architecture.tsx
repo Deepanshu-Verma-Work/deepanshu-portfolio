@@ -102,46 +102,53 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     const hasIcon = !imageErrors[conn.slug];
 
                     const isClickable = techData[conn.slug] !== undefined;
-                    const NodeWrapper = isClickable ? Link : 'div';
-                    const wrapperProps = isClickable ? { href: `/tech/${conn.slug}` } : {};
+                    const innerContent = (
+                        <g
+                            className={`group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
+                            onMouseEnter={() => setHoveredNode(conn.name)}
+                            onMouseLeave={() => setHoveredNode(null)}
+                        >
+                            <motion.circle
+                                cx={pos.x}
+                                cy={pos.y}
+                                r="32"
+                                className={`fill-background stroke-border transition-all ${isClickable ? 'group-hover:stroke-primary group-hover:stroke-2' : ''}`}
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                            />
+
+                            {/* Icon or Initials */}
+                            <foreignObject x={pos.x - 20} y={pos.y - 20} width="40" height="40" className="pointer-events-none">
+                                <div className="w-full h-full flex items-center justify-center">
+                                    {hasIcon ? (
+                                        <img
+                                            src={`/deepanshu-portfolio/tech-icons/${conn.slug}.svg`}
+                                            alt={conn.name}
+                                            className={`w-8 h-8 object-contain transition-opacity ${isClickable ? 'opacity-80 group-hover:opacity-100' : 'opacity-60'}`}
+                                            onError={() => handleImageError(conn.slug)}
+                                        />
+                                    ) : (
+                                        <span className="text-[10px] font-mono font-bold text-foreground uppercase tracking-tighter">
+                                            {getTechLabel(conn.name)}
+                                        </span>
+                                    )}
+                                </div>
+                            </foreignObject>
+                        </g>
+                    );
 
                     return (
                         <g key={`node-${index}`}>
-                            <NodeWrapper {...wrapperProps}>
-                                <g
-                                    className={`group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
-                                    onMouseEnter={() => setHoveredNode(conn.name)}
-                                    onMouseLeave={() => setHoveredNode(null)}
-                                >
-                                    <motion.circle
-                                        cx={pos.x}
-                                        cy={pos.y}
-                                        r="32"
-                                        className={`fill-background stroke-border transition-all ${isClickable ? 'group-hover:stroke-primary group-hover:stroke-2' : ''}`}
-                                        initial={{ scale: 0, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                                    />
-
-                                    {/* Icon or Initials */}
-                                    <foreignObject x={pos.x - 20} y={pos.y - 20} width="40" height="40" className="pointer-events-none">
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            {hasIcon ? (
-                                                <img
-                                                    src={`/deepanshu-portfolio/tech-icons/${conn.slug}.svg`}
-                                                    alt={conn.name}
-                                                    className={`w-8 h-8 object-contain transition-opacity ${isClickable ? 'opacity-80 group-hover:opacity-100' : 'opacity-60'}`}
-                                                    onError={() => handleImageError(conn.slug)}
-                                                />
-                                            ) : (
-                                                <span className="text-[10px] font-mono font-bold text-foreground uppercase tracking-tighter">
-                                                    {getTechLabel(conn.name)}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </foreignObject>
+                            {isClickable ? (
+                                <Link href={`/tech/${conn.slug}`}>
+                                    {innerContent}
+                                </Link>
+                            ) : (
+                                <g>
+                                    {innerContent}
                                 </g>
-                            </NodeWrapper>
+                            )}
                         </g>
                     );
                 })}
