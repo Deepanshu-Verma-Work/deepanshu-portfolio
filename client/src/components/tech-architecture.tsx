@@ -101,11 +101,15 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     const pos = getPosition(index, connections.length);
                     const hasIcon = !imageErrors[conn.slug];
 
+                    const isClickable = techData[conn.slug] !== undefined;
+                    const NodeWrapper = isClickable ? Link : 'div';
+                    const wrapperProps = isClickable ? { href: `/tech/${conn.slug}` } : {};
+
                     return (
                         <g key={`node-${index}`}>
-                            <Link href={`/tech/${conn.slug}`}>
+                            <NodeWrapper {...wrapperProps}>
                                 <g
-                                    className="cursor-pointer group"
+                                    className={`group ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
                                     onMouseEnter={() => setHoveredNode(conn.name)}
                                     onMouseLeave={() => setHoveredNode(null)}
                                 >
@@ -113,7 +117,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                         cx={pos.x}
                                         cy={pos.y}
                                         r="32"
-                                        className="fill-background stroke-border group-hover:stroke-primary group-hover:stroke-2 transition-all"
+                                        className={`fill-background stroke-border transition-all ${isClickable ? 'group-hover:stroke-primary group-hover:stroke-2' : ''}`}
                                         initial={{ scale: 0, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
                                         transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
@@ -126,7 +130,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                                 <img
                                                     src={`/deepanshu-portfolio/tech-icons/${conn.slug}.svg`}
                                                     alt={conn.name}
-                                                    className="w-8 h-8 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                                                    className={`w-8 h-8 object-contain transition-opacity ${isClickable ? 'opacity-80 group-hover:opacity-100' : 'opacity-60'}`}
                                                     onError={() => handleImageError(conn.slug)}
                                                 />
                                             ) : (
@@ -137,7 +141,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                                         </div>
                                     </foreignObject>
                                 </g>
-                            </Link>
+                            </NodeWrapper>
                         </g>
                     );
                 })}
@@ -242,7 +246,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
                     labelStyle.transform = 'translate(-50%, -100%)';
                 } else if (isBottom) {
                     labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
-                    labelStyle.top = `calc(50% + ${pos.y - center.y + 55}px)`;
+                    labelStyle.top = `calc(50% + ${pos.y - center.y + 45}px)`; // Reduced offset to prevent overlap
                     labelStyle.transform = 'translateX(-50%)';
                 } else {
                     labelStyle.left = `calc(50% + ${pos.x - center.x}px)`;
@@ -272,7 +276,7 @@ export default function TechArchitecture({ tech }: TechArchitectureProps) {
             })}
 
             {/* Hover Info Overlay */}
-            <div className="absolute bottom-12 left-0 right-0 text-center h-8 pointer-events-none">
+            <div className="absolute bottom-4 left-0 right-0 text-center h-8 pointer-events-none">
                 {hoveredNode ? (
                     <motion.span
                         initial={{ opacity: 0, y: 5 }}
