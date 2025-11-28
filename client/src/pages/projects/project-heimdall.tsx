@@ -1,119 +1,164 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Shield, Eye, Lock, Zap, ExternalLink, Github, ArrowLeft } from 'lucide-react';
-import { Link } from 'wouter';
-import HeimdallArchitecture from '@/components/HeimdallArchitecture';
+import { motion } from "framer-motion";
+import { ArrowLeft, Layers, Cpu, ExternalLink, Github, Eye, Shield, Zap } from "lucide-react";
+import { Link } from "wouter";
+import HeimdallArchitecture from "@/components/HeimdallArchitecture";
 
-const ProjectHeimdall = () => {
+export default function ProjectHeimdall() {
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-cyan-500/30">
-
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.15),transparent_50%)]"></div>
-
-                <div className="max-w-7xl mx-auto relative z-10">
+        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
+            {/* Navigation */}
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <Link href="/">
-                        <a className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
-                            <ArrowLeft className="w-4 h-4" /> Back to Portfolio
-                        </a>
+                        <div className="flex items-center gap-2 cursor-pointer group">
+                            <ArrowLeft className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+                            <span className="font-mono text-sm text-muted-foreground group-hover:text-foreground transition-colors">Back to Portfolio</span>
+                        </div>
                     </Link>
+                </div>
+            </nav>
 
+            <main className="pt-32 pb-20 px-6">
+                <div className="max-w-4xl mx-auto">
+                    {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex flex-col md:flex-row gap-12 items-center"
+                        transition={{ duration: 0.6 }}
+                        className="mb-16"
                     >
-                        <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
-                                    <Shield className="w-8 h-8 text-cyan-400" />
-                                </div>
-                                <span className="text-cyan-400 font-mono text-sm tracking-wider">AI SAFETY MONITOR</span>
-                            </div>
-
-                            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-500">
-                                Project Heimdall
-                            </h1>
-
-                            <p className="text-xl text-slate-400 mb-8 leading-relaxed max-w-2xl">
-                                An autonomous visual safety monitoring system that uses a **Hybrid Edge/Cloud Architecture** to detect PPE violations in real-time.
-                                By processing frames intelligently, it ensures workplace safety while optimizing cloud costs.
-                            </p>
-
-                            <div className="flex gap-4">
-                                <a
-                                    href="https://github.com/Deepanshu-Verma-Work/project-heimdall"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-slate-200 transition-colors"
-                                >
-                                    <Github className="w-5 h-5" /> View Code
-                                </a>
-                                <a
-                                    href="https://main.d1i2ljwo2kkws6.amplifyapp.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-6 py-3 bg-slate-800 text-white rounded-full font-medium hover:bg-slate-700 transition-colors border border-slate-700"
-                                >
-                                    <ExternalLink className="w-5 h-5" /> Live Demo
-                                </a>
-                            </div>
+                        <div className="flex items-center gap-3 mb-6">
+                            <span className="px-3 py-1 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-500 text-xs font-mono uppercase tracking-wider">
+                                Computer Vision
+                            </span>
+                            <span className="px-3 py-1 rounded-full border border-border bg-secondary/50 text-muted-foreground text-xs font-mono uppercase tracking-wider">
+                                2025
+                            </span>
                         </div>
+                        <h1 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight mb-6 leading-none">
+                            Project Heimdall
+                        </h1>
+                        <p className="text-xl text-muted-foreground font-heading leading-relaxed max-w-2xl mb-8">
+                            An autonomous visual safety monitoring system that uses a <strong>Hybrid Edge/Cloud Architecture</strong> to detect PPE violations in real-time.
+                        </p>
 
-                        {/* Hero Visual */}
-                        <div className="flex-1 w-full relative group">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                            <div className="relative bg-slate-900 rounded-2xl border border-slate-800 p-2 overflow-hidden aspect-video flex items-center justify-center">
-                                <div className="text-center">
-                                    <Eye className="w-16 h-16 text-slate-700 mx-auto mb-4" />
-                                    <p className="text-slate-500 font-mono text-sm">LIVE FEED PREVIEW</p>
+                        <div className="flex gap-4">
+                            <a
+                                href="https://main.d1i2ljwo2kkws6.amplifyapp.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors"
+                            >
+                                <ExternalLink className="w-4 h-4" /> Live Demo
+                            </a>
+                            <a
+                                href="https://github.com/Deepanshu-Verma-Work/project-heimdall"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 px-6 py-3 border border-border bg-background text-foreground rounded-full font-medium hover:bg-secondary/50 transition-colors"
+                            >
+                                <Github className="w-4 h-4" /> View Code
+                            </a>
+                        </div>
+                    </motion.div>
+
+                    {/* Architecture Diagram */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="mb-20"
+                    >
+                        <div className="rounded-2xl border border-border bg-zinc-950 overflow-hidden shadow-2xl">
+                            <div className="p-4 border-b border-zinc-800 bg-zinc-900/50 flex items-center justify-between">
+                                <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">System Architecture</span>
+                                <div className="flex gap-1.5">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
                                 </div>
+                            </div>
+                            <div className="aspect-video w-full bg-zinc-950 relative">
+                                <HeimdallArchitecture />
                             </div>
                         </div>
                     </motion.div>
-                </div>
-            </section>
 
-            {/* Architecture Section */}
-            <section className="py-20 px-6 bg-slate-900/30 border-y border-slate-800">
-                <div className="max-w-7xl mx-auto">
-                    <HeimdallArchitecture />
-                </div>
-            </section>
+                    {/* Project Details */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+                        <div className="md:col-span-2 space-y-12">
+                            <section>
+                                <h2 className="text-2xl font-display font-bold uppercase tracking-tight mb-6 flex items-center gap-3">
+                                    <Shield className="w-6 h-6 text-cyan-500" />
+                                    The Problem
+                                </h2>
+                                <p className="text-muted-foreground leading-relaxed mb-6">
+                                    Workplace safety is a critical concern in manufacturing and construction. Manual monitoring is prone to error and expensive. Missing PPE (like helmets) can lead to severe accidents and liability issues.
+                                </p>
+                            </section>
 
-            {/* Features Grid */}
-            <section className="py-20 px-6">
-                <div className="max-w-7xl mx-auto">
-                    <h2 className="text-3xl font-bold mb-12 text-center">Key Capabilities</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="p-8 bg-slate-900/50 rounded-2xl border border-slate-800 hover:border-cyan-500/30 transition-colors">
-                            <Eye className="w-10 h-10 text-cyan-400 mb-6" />
-                            <h3 className="text-xl font-bold mb-4">Real-time Detection</h3>
-                            <p className="text-slate-400">
-                                Processes video feeds instantly using Amazon Rekognition to identify workers and verify PPE compliance with high accuracy.
-                            </p>
+                            <section>
+                                <h2 className="text-2xl font-display font-bold uppercase tracking-tight mb-6 flex items-center gap-3">
+                                    <Cpu className="w-6 h-6 text-cyan-500" />
+                                    The Solution
+                                </h2>
+                                <p className="text-muted-foreground leading-relaxed mb-6">
+                                    Heimdall is an intelligent "All-Seeing Eye" that monitors video feeds in real-time. It uses a <strong>Hybrid Architecture</strong>:
+                                </p>
+                                <ul className="space-y-4 text-muted-foreground">
+                                    <li className="flex gap-4">
+                                        <span className="font-mono text-cyan-500 font-bold">01</span>
+                                        <span><strong>Edge Capture:</strong> The browser captures video frames and optimizes them (resizing/compression) before transmission to reduce bandwidth.</span>
+                                    </li>
+                                    <li className="flex gap-4">
+                                        <span className="font-mono text-cyan-500 font-bold">02</span>
+                                        <span><strong>Serverless Analysis:</strong> AWS Lambda receives the frames and orchestrates the analysis, scaling automatically with demand.</span>
+                                    </li>
+                                    <li className="flex gap-4">
+                                        <span className="font-mono text-cyan-500 font-bold">03</span>
+                                        <span><strong>Computer Vision:</strong> Amazon Rekognition's deep learning models detect persons and identify protective equipment (PPE) like helmets.</span>
+                                    </li>
+                                    <li className="flex gap-4">
+                                        <span className="font-mono text-cyan-500 font-bold">04</span>
+                                        <span><strong>Real-time Alerts:</strong> If a violation is detected, the system logs the event and triggers an AWS SNS alert (simulated) to notify supervisors.</span>
+                                    </li>
+                                </ul>
+                            </section>
                         </div>
-                        <div className="p-8 bg-slate-900/50 rounded-2xl border border-slate-800 hover:border-purple-500/30 transition-colors">
-                            <Zap className="w-10 h-10 text-purple-400 mb-6" />
-                            <h3 className="text-xl font-bold mb-4">Instant Alerts</h3>
-                            <p className="text-slate-400">
-                                Triggers immediate notifications via AWS SNS (SMS/Email) to site supervisors when safety violations occur.
-                            </p>
-                        </div>
-                        <div className="p-8 bg-slate-900/50 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
-                            <Lock className="w-10 h-10 text-green-400 mb-6" />
-                            <h3 className="text-xl font-bold mb-4">Enterprise Scalable</h3>
-                            <p className="text-slate-400">
-                                Built on serverless AWS architecture (Lambda, Kinesis, IoT Core) to handle thousands of camera feeds simultaneously.
-                            </p>
+
+                        <div className="space-y-12">
+                            <section>
+                                <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-6">Tech Stack</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {["Amazon Rekognition", "AWS Lambda", "React", "TypeScript", "Tailwind CSS", "AWS Amplify", "AWS SNS"].map((tech) => (
+                                        <span key={tech} className="px-3 py-1.5 rounded-md border border-border bg-secondary/30 text-xs font-mono text-foreground">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <section>
+                                <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-6">Key Features</h3>
+                                <ul className="space-y-3">
+                                    {[
+                                        "Real-time PPE Detection",
+                                        "99% Accuracy (Rekognition)",
+                                        "Hybrid Edge/Cloud Design",
+                                        "Serverless Scalability",
+                                        "Instant Violation Logging"
+                                    ].map((feature) => (
+                                        <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
                         </div>
                     </div>
                 </div>
-            </section>
-
+            </main>
         </div>
     );
-};
-
-export default ProjectHeimdall;
+}
