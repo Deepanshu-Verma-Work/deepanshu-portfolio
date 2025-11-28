@@ -13,6 +13,12 @@ export default function TechDetail() {
     const slug = params.slug as string;
     const tech = techData[slug];
 
+    // Fallback data mapping if specific fields are missing
+    const whatItIs = tech?.whatItIs || tech?.description;
+    const whyNeeded = tech?.whyNeeded || "A critical component for building scalable, resilient, and modern cloud architectures.";
+    const howWeUsedIt = tech?.howWeUsedIt || tech?.useCases || [];
+    const bestPractices = tech?.bestPractices || tech?.features || [];
+
     // Find related technologies in the same category
     const relatedTechs = tech
         ? Object.entries(techData)
