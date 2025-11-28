@@ -12,6 +12,7 @@ import RealTimeMonitoring from "@/pages/projects/real-time-monitoring";
 import TTSPipeline from "@/pages/projects/tts-pipeline";
 import MultimodalRAG from "@/pages/projects/multimodal-rag";
 import LexGuard from "@/pages/projects/lex-guard";
+import ProjectHeimdall from "@/pages/projects/project-heimdall";
 import TechDetail from "@/pages/tech-detail";
 
 const base = import.meta.env.BASE_URL;
@@ -31,6 +32,7 @@ function Routes() {
         <Route path="/projects/tts-pipeline" component={TTSPipeline} />
         <Route path="/projects/multimodal-rag" component={MultimodalRAG} />
         <Route path="/projects/lex-guard" component={LexGuard} />
+        <Route path="/projects/project-heimdall" component={ProjectHeimdall} />
         <Route path="/tech/:slug" component={TechDetail} />
         <Route component={NotFound} />
       </Switch>
