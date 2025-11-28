@@ -192,7 +192,7 @@ export const techData = {
         description: "Managed relational database service for MySQL, PostgreSQL, MariaDB, Oracle BYOL, or SQL Server.",
         features: ["Automated Backups", "Multi-AZ Deployments", "Read Replicas"],
         useCases: ["Web Applications", "E-commerce", "Enterprise Apps"]
-    }
+    },
     "iot-core": {
         name: "AWS IoT Core",
         icon: Cpu,
