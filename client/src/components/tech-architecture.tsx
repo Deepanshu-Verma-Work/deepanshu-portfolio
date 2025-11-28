@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "wouter";
-import { TechData } from "@/data/tech-data";
+import { TechData, techData } from "@/data/tech-data";
 
 interface TechArchitectureProps {
     tech: TechData;
