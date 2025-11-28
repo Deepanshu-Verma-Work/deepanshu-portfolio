@@ -193,4 +193,20 @@ export const techData = {
         features: ["Automated Backups", "Multi-AZ Deployments", "Read Replicas"],
         useCases: ["Web Applications", "E-commerce", "Enterprise Apps"]
     }
+    "iot-core": {
+        name: "AWS IoT Core",
+        icon: Cpu,
+        category: "Internet of Things",
+        description: "Connect devices to the cloud securely and at scale.",
+        features: ["Device Gateway", "Message Broker", "Rules Engine"],
+        useCases: ["Smart Home", "Industrial IoT", "Fleet Management"]
+    },
+    "kinesis-video": {
+        name: "Kinesis Video Streams",
+        icon: Server,
+        category: "Media Services",
+        description: "Securely stream video from connected devices to AWS for analytics and machine learning.",
+        features: ["Real-time Streaming", "HLS/DASH Support", "ML Integration"],
+        useCases: ["Security Monitoring", "Smart City", "Industrial Automation"]
+    }
 };

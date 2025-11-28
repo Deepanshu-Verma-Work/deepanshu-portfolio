@@ -11,6 +11,7 @@ import MonitoringArchitecture from "@/components/architectures/MonitoringArchite
 import TTSArchitecture from "@/components/architectures/TTSArchitecture";
 import RAGArchitecture from "@/components/architectures/RAGArchitecture";
 import LexGuardArchitecture from "@/components/architectures/LexGuardArchitecture";
+import HeimdallArchitecture from "@/components/HeimdallArchitecture";
 
 const projects = [
   {
@@ -57,6 +58,15 @@ const projects = [
     Component: LexGuardArchitecture,
     description: "A production-grade, serverless contract analysis platform using AWS Lambda, Amazon Bedrock (Titan), and Textract for automated legal risk assessment.",
     route: "/projects/lex-guard"
+  },
+  {
+    id: 6,
+    title: "Project Heimdall",
+    category: "Computer Vision",
+    year: "2025",
+    Component: HeimdallArchitecture,
+    description: "An autonomous visual safety monitoring system using Amazon Rekognition to detect PPE violations in real-time, simulating a production-grade IoT pipeline.",
+    route: "/projects/project-heimdall"
   }
 ];
 
